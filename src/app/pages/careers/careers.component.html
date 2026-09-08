@@ -1,0 +1,118 @@
+<main id="main-content">
+  <!-- Hero -->
+  <section class="careers-hero section-dark section" aria-label="Careers page hero">
+    <div class="careers-hero__bg" aria-hidden="true">
+      <div class="c-orb c-orb--1"></div>
+      <div class="c-orb c-orb--2"></div>
+    </div>
+    <div class="container">
+      <div class="animate-on-scroll" style="max-width: 680px; position: relative; z-index: 2;">
+        <span class="section-eyebrow" style="color: var(--blue-400);">Careers at Hasura</span>
+        <h1 class="careers-hero__title">
+          Build the Future<br><span class="text-gradient">With Hasura.</span>
+        </h1>
+        <p class="careers-hero__desc">
+          We're building an elite team of engineers, architects, educators, and innovators who believe technology is the ultimate lever for human progress. Come build with us.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Culture & Perks -->
+  <section class="careers-perks section" aria-labelledby="perks-title">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-eyebrow">Life at Hasura</span>
+        <h2 class="section-title" id="perks-title">
+          Why You'll Love<br>
+          <span class="text-gradient">Building With Us.</span>
+        </h2>
+        <p class="section-subtitle">
+          We give smart, driven people the autonomy, modern tools, and support they need to do their life's best work.
+        </p>
+      </div>
+
+      <div class="perks-grid animate-on-scroll">
+        <div class="perk-card" *ngFor="let perk of perks">
+          <div class="perk-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          <h4>{{ perk.title }}</h4>
+          <p>{{ perk.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Positions -->
+  <section class="careers-openings section section-dark" aria-labelledby="openings-title">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-eyebrow" style="color: var(--blue-400);">Open Roles</span>
+        <h2 class="section-title" id="openings-title">Current <span class="text-gradient">Opportunities.</span></h2>
+        <p class="section-subtitle">Find your next challenge. We're actively hiring across departments.</p>
+      </div>
+
+      <!-- Department Filter Pills -->
+      <div class="dept-filters animate-on-scroll" role="group" aria-label="Department filters">
+        <button
+          *ngFor="let dept of departments"
+          class="dept-btn"
+          [class.active]="activeDepartment === dept"
+          (click)="setDepartment(dept)"
+          [attr.aria-pressed]="activeDepartment === dept">
+          {{ dept }}
+        </button>
+      </div>
+
+      <div class="careers-grid animate-on-scroll">
+        <article class="career-card" *ngFor="let career of filteredCareers">
+          <div class="career-card__header">
+            <div>
+              <h3 class="career-card__title">{{ career.title }}</h3>
+              <div class="career-card__meta">
+                <span class="tag">{{ career.department }}</span>
+                <span class="career-card__type">{{ career.type }}</span>
+                <span class="career-card__location">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  {{ career.location }}
+                </span>
+              </div>
+            </div>
+          </div>
+          <p class="career-card__desc">{{ career.description }}</p>
+
+          <div class="career-card__reqs-wrap">
+            <span class="reqs-title">Key Competencies:</span>
+            <ul class="career-card__req" aria-label="Requirements">
+              <li *ngFor="let req of career.requirements">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                {{ req }}
+              </li>
+            </ul>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            style="align-self: flex-start; margin-top: auto;"
+            (click)="openApplyModal(career)">
+            Apply for Position
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Apply Modal -->
+  <app-apply-modal
+    [career]="selectedCareer"
+    [isOpen]="isModalOpen"
+    (close)="closeApplyModal()">
+  </app-apply-modal>
+
+  <app-final-cta></app-final-cta>
+</main>

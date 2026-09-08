@@ -1,0 +1,112 @@
+<div class="modal-overlay" *ngIf="isOpen && career">
+  <div class="modal-backdrop" (click)="onClose()" aria-hidden="true"></div>
+
+  <div
+    class="apply-modal"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="'Apply for ' + career.title">
+
+    <button type="button" class="modal-close" (click)="onClose()" aria-label="Close modal">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <div class="apply-modal__header">
+      <div class="modal-tags">
+        <span class="tag">{{ career.department }}</span>
+        <span class="tag tag-blue">{{ career.type }}</span>
+        <span class="tag tag-dark">{{ career.location }}</span>
+      </div>
+      <h2 class="apply-modal__title">Apply for {{ career.title }}</h2>
+      <p class="apply-modal__desc">Join Hasura and build technologies that elevate careers and empower businesses.</p>
+    </div>
+
+    <div class="apply-modal__body">
+      <!-- Success Message -->
+      <div *ngIf="isSuccess" class="apply-success">
+        <div class="success-icon">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h3>Application Successfully Submitted!</h3>
+        <p>
+          We've received your profile for the <strong>{{ career.title }}</strong> role. Our engineering and talent team reviews every submission thoroughly. If there's a strong alignment, we'll reach out within 3 business days for an introductory call.
+        </p>
+        <button type="button" class="btn btn-outline" (click)="onClose()">Close</button>
+      </div>
+
+      <!-- Application Form -->
+      <form *ngIf="!isSuccess" [formGroup]="applyForm" (ngSubmit)="onSubmit()" class="apply-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Full Name *</label>
+            <input type="text" class="form-input" formControlName="fullName" placeholder="Sarah Jenkins">
+            <span class="error-msg" *ngIf="applyForm.get('fullName')?.invalid && applyForm.get('fullName')?.touched">
+              Full name is required.
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address *</label>
+            <input type="email" class="form-input" formControlName="email" placeholder="sarah@example.com">
+            <span class="error-msg" *ngIf="applyForm.get('email')?.invalid && applyForm.get('email')?.touched">
+              Valid email address is required.
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Phone Number *</label>
+            <input type="tel" class="form-input" formControlName="phone" placeholder="+91 98765 43210">
+            <span class="error-msg" *ngIf="applyForm.get('phone')?.invalid && applyForm.get('phone')?.touched">
+              Valid phone number is required.
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Relevant Experience</label>
+            <select class="form-select" formControlName="experience">
+              <option value="Entry / 0-1 Year">Entry / 0-1 Year</option>
+              <option value="1-3 Years">1-3 Years</option>
+              <option value="3-5 Years">3-5 Years</option>
+              <option value="5+ Years">5+ Years</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Portfolio / GitHub / LinkedIn URL</label>
+            <input type="url" class="form-input" formControlName="portfolioUrl" placeholder="https://github.com/username">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Resume Link (Google Drive / Notion / PDF URL) *</label>
+            <input type="url" class="form-input" formControlName="resumeLink" placeholder="https://drive.google.com/your-resume">
+            <span class="error-msg" *ngIf="applyForm.get('resumeLink')?.invalid && applyForm.get('resumeLink')?.touched">
+              Please provide a link to your resume.
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Why are you excited to join Hasura? (Optional)</label>
+          <textarea class="form-textarea" formControlName="coverNote" rows="3" placeholder="Tell us about a project you loved building or why this role caught your eye..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-lg" [disabled]="isSubmitting">
+            <span *ngIf="!isSubmitting">Submit Application</span>
+            <span *ngIf="isSubmitting">Submitting Profile...</span>
+          </button>
+          <button type="button" class="btn btn-ghost" (click)="onClose()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

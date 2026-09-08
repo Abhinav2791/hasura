@@ -1,0 +1,71 @@
+<section class="faq-section section" id="faq" aria-labelledby="faq-title">
+  <div class="container">
+    <div class="section-header animate-on-scroll">
+      <span class="section-eyebrow">Frequently Asked Questions</span>
+      <h2 class="section-title" id="faq-title">
+        Everything You Need<br>
+        <span class="text-gradient">To Know About Hasura.</span>
+      </h2>
+      <p class="section-subtitle">
+        Have questions about our enterprise development services, career tracks, or methodology? Find immediate answers below.
+      </p>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="faq-categories animate-on-scroll" role="group" aria-label="FAQ categories">
+      <button
+        *ngFor="let cat of categories"
+        class="filter-btn"
+        [class.active]="activeCategory === cat.id"
+        (click)="setCategory(cat.id)"
+        [attr.aria-pressed]="activeCategory === cat.id">
+        {{ cat.label }}
+      </button>
+    </div>
+
+    <!-- FAQ Accordion -->
+    <div class="faq-accordion animate-on-scroll">
+      <div
+        *ngFor="let faq of filteredFaqs; let i = index"
+        class="faq-item"
+        [class.open]="openIndex === i">
+        <button
+          class="faq-question"
+          (click)="toggle(i)"
+          [attr.aria-expanded]="openIndex === i"
+          [attr.aria-controls]="'faq-ans-' + i"
+          [id]="'faq-btn-' + i">
+          <span class="faq-question__text">{{ faq.question }}</span>
+          <span class="faq-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+          </span>
+        </button>
+
+        <div
+          class="faq-answer"
+          [id]="'faq-ans-' + i"
+          [attr.aria-labelledby]="'faq-btn-' + i"
+          [hidden]="openIndex !== i">
+          <div class="faq-answer__inner">
+            <p>{{ faq.answer }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Help Box -->
+    <div class="faq-cta text-center animate-on-scroll">
+      <div class="faq-cta__card">
+        <h4>Still have questions?</h4>
+        <p>Our technology advisors are available to walk you through programs or project scoping.</p>
+        <div class="faq-cta__buttons">
+          <a routerLink="/contact" class="btn btn-primary btn-sm">Contact Our Team</a>
+          <a href="mailto:hello@hasura.tech" class="btn btn-outline btn-sm">hello&#64;hasura.tech</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

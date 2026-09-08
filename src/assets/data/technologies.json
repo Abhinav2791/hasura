@@ -1,0 +1,64 @@
+{
+  "categories": [
+    {
+      "id": "frontend",
+      "name": "Frontend",
+      "technologies": [
+        { "id": "angular", "name": "Angular", "category": "Frontend", "description": "Enterprise-grade TypeScript framework for scalable applications", "icon": "A" },
+        { "id": "react", "name": "React", "category": "Frontend", "description": "UI library for building component-based interfaces", "icon": "R" },
+        { "id": "nextjs", "name": "Next.js", "category": "Frontend", "description": "React framework for production with SSR and SSG", "icon": "N" },
+        { "id": "typescript", "name": "TypeScript", "category": "Frontend", "description": "Type-safe JavaScript for large-scale applications", "icon": "TS" },
+        { "id": "tailwind", "name": "Tailwind CSS", "category": "Frontend", "description": "Utility-first CSS framework for rapid UI development", "icon": "TW" }
+      ]
+    },
+    {
+      "id": "backend",
+      "name": "Backend",
+      "technologies": [
+        { "id": "java", "name": "Java", "category": "Backend", "description": "Robust, enterprise-grade programming language", "icon": "J" },
+        { "id": "spring", "name": "Spring Boot", "category": "Backend", "description": "Production-ready Java framework for microservices", "icon": "SB" },
+        { "id": "nodejs", "name": "Node.js", "category": "Backend", "description": "JavaScript runtime for scalable server-side applications", "icon": "No" },
+        { "id": "python", "name": "Python", "category": "Backend", "description": "Versatile language for APIs, data science and AI", "icon": "Py" }
+      ]
+    },
+    {
+      "id": "database",
+      "name": "Database",
+      "technologies": [
+        { "id": "postgresql", "name": "PostgreSQL", "category": "Database", "description": "Advanced open-source relational database", "icon": "PG" },
+        { "id": "mysql", "name": "MySQL", "category": "Database", "description": "World's most popular open-source relational database", "icon": "My" },
+        { "id": "mongodb", "name": "MongoDB", "category": "Database", "description": "Flexible NoSQL document database for modern apps", "icon": "Mo" },
+        { "id": "redis", "name": "Redis", "category": "Database", "description": "In-memory data store for caching and real-time features", "icon": "Re" }
+      ]
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud",
+      "technologies": [
+        { "id": "aws", "name": "AWS", "category": "Cloud", "description": "The world's leading cloud computing platform", "icon": "AWS" },
+        { "id": "azure", "name": "Azure", "category": "Cloud", "description": "Microsoft's enterprise cloud platform", "icon": "Az" }
+      ]
+    },
+    {
+      "id": "devops",
+      "name": "DevOps",
+      "technologies": [
+        { "id": "docker", "name": "Docker", "category": "DevOps", "description": "Container platform for consistent deployments", "icon": "Do" },
+        { "id": "kubernetes", "name": "Kubernetes", "category": "DevOps", "description": "Container orchestration for production workloads", "icon": "K8s" },
+        { "id": "jenkins", "name": "Jenkins", "category": "DevOps", "description": "Open-source automation server for CI/CD", "icon": "Je" },
+        { "id": "terraform", "name": "Terraform", "category": "DevOps", "description": "Infrastructure as code for any cloud provider", "icon": "Tf" },
+        { "id": "github-actions", "name": "GitHub Actions", "category": "DevOps", "description": "Automate workflows directly from your repository", "icon": "GA" }
+      ]
+    },
+    {
+      "id": "ai",
+      "name": "AI & ML",
+      "technologies": [
+        { "id": "openai", "name": "OpenAI", "category": "AI & ML", "description": "Leading generative AI APIs and models", "icon": "OAI" },
+        { "id": "langchain", "name": "LangChain", "category": "AI & ML", "description": "Framework for building LLM-powered applications", "icon": "LC" },
+        { "id": "rag", "name": "RAG", "category": "AI & ML", "description": "Retrieval-Augmented Generation for grounded AI", "icon": "RAG" },
+        { "id": "vectordb", "name": "Vector DBs", "category": "AI & ML", "description": "Semantic search and embeddings at scale", "icon": "VDB" }
+      ]
+    }
+  ]
+}

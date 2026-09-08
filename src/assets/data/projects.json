@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ecommerce-platform",
+    "title": "E-Commerce Intelligence Platform",
+    "industry": "Retail Technology",
+    "description": "A full-featured e-commerce platform with AI-powered product recommendations, real-time inventory management and advanced analytics.",
+    "problem": "A growing retail brand needed to replace their fragmented legacy systems with a unified, intelligent platform that could scale globally.",
+    "solution": "We built a microservices-based e-commerce platform with ML-powered recommendations, real-time inventory sync and a React-based storefront.",
+    "outcome": "40% increase in conversion rate, 60% reduction in inventory discrepancies, platform now serves 50,000+ daily users.",
+    "technologies": ["Spring Boot", "React", "AWS", "PostgreSQL", "Redis", "Elasticsearch"],
+    "image": "assets/images/project-ecommerce.svg",
+    "featured": true
+  },
+  {
+    "id": "ai-hr-system",
+    "title": "AI-Powered HR Management System",
+    "industry": "Human Resources Technology",
+    "description": "An intelligent HR platform that automates recruitment, employee management and performance analytics using generative AI.",
+    "problem": "A mid-sized company struggled with manual HR processes, slow hiring cycles and inability to gain insights from employee data.",
+    "solution": "We developed an AI-driven HR system with automated resume screening, interview scheduling, performance dashboards and predictive analytics.",
+    "outcome": "65% reduction in time-to-hire, automated 80% of initial candidate screening, improved employee retention tracking.",
+    "technologies": ["Java", "Spring Boot", "Python", "OpenAI", "Angular", "PostgreSQL", "AWS"],
+    "image": "assets/images/project-hr.svg",
+    "featured": true
+  },
+  {
+    "id": "cloud-fintech",
+    "title": "Cloud-Native Fintech Platform",
+    "industry": "Financial Technology",
+    "description": "A secure, scalable financial services platform built cloud-native on AWS with real-time transaction processing and compliance automation.",
+    "problem": "A fintech startup needed a highly available, compliant payment infrastructure that could handle millions of transactions with zero downtime.",
+    "solution": "We architected a cloud-native fintech platform using AWS microservices, implementing event-driven architecture with end-to-end encryption.",
+    "outcome": "99.99% uptime achieved, processed 2M+ transactions in beta, full regulatory compliance maintained.",
+    "technologies": ["AWS Lambda", "Node.js", "PostgreSQL", "Kafka", "Docker", "Kubernetes", "Terraform"],
+    "image": "assets/images/project-fintech.svg",
+    "featured": true
+  },
+  {
+    "id": "healthcare-portal",
+    "title": "Healthcare Management Portal",
+    "industry": "Healthcare Technology",
+    "description": "A comprehensive patient management and telemedicine platform that connects doctors and patients with intelligent health monitoring.",
+    "problem": "Healthcare providers needed a unified digital platform for appointment management, patient records and remote consultation capabilities.",
+    "solution": "Built a HIPAA-compliant healthcare portal with video consultations, AI-assisted diagnostics assistance and electronic health records.",
+    "outcome": "Reduced appointment no-shows by 45%, enabled 10,000+ remote consultations, streamlined patient data management.",
+    "technologies": ["Angular", "Spring Boot", "WebRTC", "AWS", "MongoDB", "Redis"],
+    "image": "assets/images/project-healthcare.svg",
+    "featured": false
+  }
+]

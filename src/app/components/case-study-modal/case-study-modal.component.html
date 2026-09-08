@@ -1,0 +1,102 @@
+<div class="modal-overlay" *ngIf="isOpen && project">
+  <div class="modal-backdrop" (click)="onClose()" aria-hidden="true"></div>
+
+  <div
+    class="case-modal"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="project.title + ' detailed case study'">
+
+    <button type="button" class="modal-close" (click)="onClose()" aria-label="Close modal">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <div class="case-modal__header">
+      <span class="tag">{{ project.industry }}</span>
+      <h2 class="case-modal__title">{{ project.title }}</h2>
+      <p class="case-modal__desc">{{ project.description }}</p>
+    </div>
+
+    <div class="case-modal__body">
+      <!-- Key Outcome Highlight -->
+      <div class="impact-banner">
+        <div class="impact-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+        </div>
+        <div>
+          <div class="impact-title">Verified Business Impact</div>
+          <div class="impact-text">{{ project.outcome }}</div>
+        </div>
+      </div>
+
+      <!-- Challenge vs Solution Grid -->
+      <div class="case-section-grid">
+        <div class="case-block case-block--problem">
+          <div class="block-label">
+            <span class="dot dot-red"></span>
+            The Challenge
+          </div>
+          <h4>The Operational Bottleneck</h4>
+          <p>{{ project.problem }}</p>
+        </div>
+
+        <div class="case-block case-block--solution">
+          <div class="block-label">
+            <span class="dot dot-green"></span>
+            Engineering Solution
+          </div>
+          <h4>Our Architectural Approach</h4>
+          <p>{{ project.solution }}</p>
+        </div>
+      </div>
+
+      <!-- Technologies Used -->
+      <div class="tech-section">
+        <h4 class="section-sub-title">Technology & Infrastructure Stack</h4>
+        <div class="tech-pills">
+          <span class="tech-pill" *ngFor="let tech of project.technologies">
+            <span class="tech-pill-dot"></span>
+            {{ tech }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Architectural Highlights -->
+      <div class="architecture-notes">
+        <h4 class="section-sub-title">Key Architectural Highlights</h4>
+        <div class="notes-grid">
+          <div class="note-card">
+            <span class="note-title">Zero-Downtime Reliability</span>
+            <p>Multi-zone deployment with auto-scaling groups and automated failover pipelines.</p>
+          </div>
+          <div class="note-card">
+            <span class="note-title">Enterprise Security</span>
+            <p>End-to-end data encryption at rest and in transit with automated compliance auditing.</p>
+          </div>
+          <div class="note-card">
+            <span class="note-title">Optimized Latency</span>
+            <p>Multi-tier caching with distributed Redis clusters and database indexing strategies.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Footer -->
+      <div class="case-footer">
+        <div>
+          <h4>Need a Similar System Built?</h4>
+          <p>Our engineering team can scope, architect, and deliver your platform.</p>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="consultProject()">
+          Schedule Technical Consultation
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

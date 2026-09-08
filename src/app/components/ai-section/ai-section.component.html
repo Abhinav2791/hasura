@@ -1,0 +1,82 @@
+<section class="ai-section section-dark section" aria-labelledby="ai-title">
+  <div class="ai-section__bg" aria-hidden="true">
+    <div class="ai-bg-orb ai-bg-orb--1"></div>
+    <div class="ai-bg-orb ai-bg-orb--2"></div>
+  </div>
+
+  <div class="container">
+    <div class="ai-section__layout">
+
+      <!-- Visual Diagram -->
+      <div class="ai-section__diagram animate-on-scroll">
+        <div class="ai-diagram">
+          <!-- Central Core -->
+          <div class="ai-core">
+            <div class="ai-core__ring ai-core__ring--1"></div>
+            <div class="ai-core__ring ai-core__ring--2"></div>
+            <div class="ai-core__ring ai-core__ring--3"></div>
+            <div class="ai-core__center">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+              <span>AI CORE</span>
+            </div>
+          </div>
+
+          <!-- Orbiting Nodes -->
+          <div class="ai-orbit">
+            <div class="ai-node ai-node--1">
+              <span class="ai-node__label">DATA</span>
+              <span class="ai-node__desc">Intelligent pipelines</span>
+            </div>
+            <div class="ai-node ai-node--2">
+              <span class="ai-node__label">RAG</span>
+              <span class="ai-node__desc">Knowledge retrieval</span>
+            </div>
+            <div class="ai-node ai-node--3">
+              <span class="ai-node__label">APIs</span>
+              <span class="ai-node__desc">LLM integrations</span>
+            </div>
+            <div class="ai-node ai-node--4">
+              <span class="ai-node__label">APPS</span>
+              <span class="ai-node__desc">AI-powered products</span>
+            </div>
+            <div class="ai-node ai-node--5">
+              <span class="ai-node__label">AUTO</span>
+              <span class="ai-node__desc">Smart automation</span>
+            </div>
+            <div class="ai-node ai-node--6">
+              <span class="ai-node__label">USERS</span>
+              <span class="ai-node__desc">AI experiences</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="ai-section__content">
+        <span class="section-eyebrow animate-on-scroll" style="color: var(--blue-400);">Artificial Intelligence</span>
+        <h2 class="section-title animate-on-scroll animate-delay-1" style="color: var(--white);">
+          Build Smarter<br>
+          <span class="text-gradient">With AI.</span>
+        </h2>
+        <p class="ai-section__desc animate-on-scroll animate-delay-2">
+          Harness the power of generative AI, large language models and intelligent automation to build products that think, adapt and scale.
+        </p>
+
+        <ul class="ai-services animate-on-scroll animate-delay-3" aria-label="AI capabilities">
+          <li *ngFor="let service of aiServices; let i = index">
+            <div class="ai-services__check" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            {{ service }}
+          </li>
+        </ul>
+
+        <div class="ai-section__ctas animate-on-scroll animate-delay-4">
+          <a routerLink="/services" class="btn btn-primary">Explore AI Services</a>
+          <a routerLink="/courses" class="btn btn-secondary">AI Training Programs</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,63 @@
+<div class="search-backdrop" *ngIf="isOpen" (click)="closeModal()" aria-hidden="true"></div>
+
+<div
+  class="search-palette"
+  *ngIf="isOpen"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Search Hasura Platform">
+
+  <!-- Search Input Bar -->
+  <div class="search-input-wrap">
+    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input
+      id="search-palette-input"
+      type="text"
+      [(ngModel)]="query"
+      placeholder="Search programs, services, case studies, or pages..."
+      autocomplete="off"
+      spellcheck="false"
+      aria-autocomplete="list">
+    <button class="kbd-badge" (click)="closeModal()">ESC</button>
+  </div>
+
+  <!-- Results List -->
+  <div class="search-results" role="listbox">
+    <div
+      *ngFor="let res of filteredResults; let i = index"
+      class="search-result-item"
+      [class.selected]="selectedIndex === i"
+      (click)="selectItem(res)"
+      (mouseenter)="selectedIndex = i"
+      role="option"
+      [attr.aria-selected]="selectedIndex === i">
+      <div class="result-cat">
+        <span class="cat-tag cat-tag--{{ res.category.toLowerCase() }}">{{ res.category }}</span>
+      </div>
+      <div class="result-info">
+        <div class="result-title">{{ res.title }}</div>
+        <div class="result-sub">{{ res.subtitle }}</div>
+      </div>
+      <div class="result-arrow" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div class="empty-results" *ngIf="filteredResults.length === 0">
+      <p>No matching results found for "{{ query }}"</p>
+      <span>Try searching for "AI", "Cloud", "Java", "DevOps", or "Services"</span>
+    </div>
+  </div>
+
+  <!-- Palette Footer -->
+  <div class="palette-footer">
+    <div class="key-hint"><span class="kbd">↑</span> <span class="kbd">↓</span> Navigate</div>
+    <div class="key-hint"><span class="kbd">↵</span> Select</div>
+    <div class="key-hint"><span class="kbd">ESC</span> Close</div>
+  </div>
+</div>

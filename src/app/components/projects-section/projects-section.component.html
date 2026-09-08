@@ -1,0 +1,90 @@
+<section class="projects-section section" aria-labelledby="projects-title">
+  <div class="container">
+    <div class="section-header animate-on-scroll">
+      <span class="section-eyebrow">Enterprise Solutions & Case Studies</span>
+      <h2 class="section-title" id="projects-title">
+        From Architecture to<br>
+        <span class="text-gradient">Real-World Deployment.</span>
+      </h2>
+      <p class="section-subtitle">
+        Every project we build solves a real business problem, uses scalable modern architecture, and delivers
+        measurable outcomes.
+      </p>
+    </div>
+
+    <!-- Filters if showAll is true -->
+    <div class="projects-filters animate-on-scroll" *ngIf="showAll" role="group" aria-label="Project Industry filters">
+      <button *ngFor="let filter of filters" class="filter-btn" [class.active]="activeFilter === filter"
+        (click)="setFilter(filter)" [attr.aria-pressed]="activeFilter === filter">
+        {{ filter }}
+      </button>
+    </div>
+
+    <div class="projects-grid">
+      <article class="project-card animate-on-scroll" *ngFor="let project of filteredProjects; let i = index"
+        [class]="'animate-delay-' + ((i % 2) + 1)">
+        <!-- Visual -->
+        <div class="project-card__visual" [style.background]="getProjectBg(project.industry)"
+          [attr.aria-label]="project.title + ' project visual'">
+          <div class="project-card__industry-badge">{{ project.industry }}</div>
+          <div class="project-card__visual-content">
+            <div class="project-visual-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                <line x1="8" y1="21" x2="16" y2="21" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+              </svg>
+            </div>
+            <div class="project-visual-lines">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          <div class="project-card__overlay">
+            <div class="project-card__techs">
+              <span class="tag tag-dark" *ngFor="let tech of project.technologies.slice(0, 4)">{{ tech }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="project-card__content">
+          <h3 class="project-card__title">{{ project.title }}</h3>
+          <p class="project-card__desc">{{ project.description }}</p>
+
+          <!-- Outcome highlight -->
+          <div class="project-card__outcome">
+            <div class="outcome-icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                <polyline points="17 6 23 6 23 12" />
+              </svg>
+            </div>
+            <p>{{ project.outcome }}</p>
+          </div>
+
+          <button type="button" class="project-card__link btn-link" (click)="openCaseStudy(project)"
+            [attr.aria-label]="'View ' + project.title + ' in-depth case study'">
+            Explore Full Case Study
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </button>
+        </div>
+      </article>
+    </div>
+
+    <div class="text-center animate-on-scroll" style="margin-top: 56px;" *ngIf="!showAll">
+      <a routerLink="/projects" class="btn btn-outline btn-lg">View All Projects & Architecture</a>
+    </div>
+  </div>
+
+  <!-- Interactive Case Study Modal -->
+  <app-case-study-modal [project]="selectedProject" [isOpen]="isModalOpen" (close)="closeCaseStudy()">
+  </app-case-study-modal>
+</section>

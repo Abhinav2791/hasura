@@ -1,0 +1,51 @@
+<section class="what-hasura section" aria-labelledby="what-hasura-title">
+  <div class="container">
+    <div class="section-header animate-on-scroll">
+      <span class="section-eyebrow">What We Do</span>
+      <h2 class="section-title" id="what-hasura-title">
+        More Than Technology.<br>
+        <span class="text-gradient">We Build Possibilities.</span>
+      </h2>
+      <p class="section-subtitle">
+        Hasura operates across three interconnected pillars that help individuals and businesses move from idea to execution to growth.
+      </p>
+    </div>
+
+    <div class="what-hasura__pillars">
+      <article class="pillar animate-on-scroll" *ngFor="let pillar of pillars; let i = index" [class]="'animate-delay-' + (i + 1)">
+        <div class="pillar__number">{{ pillar.number }}</div>
+
+        <div class="pillar__icon-wrap">
+          <!-- Build icon -->
+          <ng-container *ngIf="pillar.icon === 'build'">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </ng-container>
+          <!-- Learn icon -->
+          <ng-container *ngIf="pillar.icon === 'learn'">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          </ng-container>
+          <!-- Grow icon -->
+          <ng-container *ngIf="pillar.icon === 'grow'">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </ng-container>
+        </div>
+
+        <div class="pillar__content">
+          <h3 class="pillar__title">{{ pillar.title }}</h3>
+          <p class="pillar__subtitle">{{ pillar.subtitle }}</p>
+          <p class="pillar__desc">{{ pillar.description }}</p>
+          <div class="pillar__tags">
+            <span class="tag" *ngFor="let tag of pillar.tags">{{ tag }}</span>
+          </div>
+        </div>
+
+        <a [routerLink]="pillar.link" class="pillar__link" [attr.aria-label]="'Learn more about ' + pillar.title">
+          Explore
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+
+        <div class="pillar__glow" aria-hidden="true"></div>
+      </article>
+    </div>
+  </div>
+</section>

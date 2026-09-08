@@ -1,0 +1,47 @@
+[
+  {
+    "id": "career-1",
+    "title": "Senior Full Stack Engineer",
+    "department": "Engineering",
+    "type": "Full-time",
+    "location": "Hybrid",
+    "description": "Build the products and platforms that power Hasura's technology ecosystem. Work with modern enterprise stacks, cloud architectures, and high-throughput systems.",
+    "requirements": ["3+ years Java / Spring Boot experience", "Strong Angular or React skills", "REST API design and microservices", "Collaborative engineering mindset"]
+  },
+  {
+    "id": "career-2",
+    "title": "Generative AI / ML Engineer",
+    "department": "AI & Data",
+    "type": "Full-time",
+    "location": "Remote",
+    "description": "Work on cutting-edge generative AI projects. Build production-grade LLM applications, RAG systems, and autonomous agent workflows.",
+    "requirements": ["Experience with Python and ML frameworks", "Hands-on LangChain, LlamaIndex, or OpenAI APIs", "RAG and vector database knowledge (Pinecone/Milvus)", "FastAPI and asynchronous backend design"]
+  },
+  {
+    "id": "career-3",
+    "title": "Cloud & DevOps Solutions Engineer",
+    "department": "Cloud & DevOps",
+    "type": "Full-time",
+    "location": "Hybrid",
+    "description": "Design and maintain cloud infrastructure, zero-downtime CI/CD pipelines, and automated security for production-grade client platforms.",
+    "requirements": ["AWS Solutions Architect level proficiency", "Docker and Kubernetes orchestration", "Infrastructure as Code (Terraform)", "CI/CD automation with GitHub Actions"]
+  },
+  {
+    "id": "career-4",
+    "title": "Lead UI/UX Product Designer",
+    "department": "Design",
+    "type": "Full-time",
+    "location": "Remote / Hybrid",
+    "description": "Craft intuitive user journeys and state-of-the-art design systems for our client platforms and internal software products.",
+    "requirements": ["3+ years product design experience", "Figma design system architecture mastery", "Interactive prototyping and user research", "Working understanding of frontend constraints"]
+  },
+  {
+    "id": "career-5",
+    "title": "Senior Technology Mentor & Lead",
+    "department": "Mentorship",
+    "type": "Full-time",
+    "location": "Hybrid",
+    "description": "Shape the careers of the next generation of engineers. Lead live coding sprints, conduct 1-on-1 architecture reviews, and guide students through real projects.",
+    "requirements": ["4+ years software industry experience", "Outstanding communication & pedagogical skills", "Passion for student transformation and mentorship", "Proven project portfolio"]
+  }
+]

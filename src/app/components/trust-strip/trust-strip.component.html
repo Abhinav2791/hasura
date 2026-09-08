@@ -1,0 +1,15 @@
+<section class="trust-strip" aria-label="Company metrics">
+  <div class="container">
+    <p class="trust-strip__label">Technology. Talent. Transformation.</p>
+    <div class="trust-strip__metrics">
+      <div class="trust-strip__metric animate-on-scroll" *ngFor="let metric of metrics; let i = index" [class]="'animate-delay-' + (i + 1)">
+        <div class="metric-value">
+          <span class="metric-number">{{ displayValues[i] }}</span>
+          <span class="metric-suffix">{{ metric.suffix }}</span>
+        </div>
+        <div class="metric-label">{{ metric.label }}</div>
+        <div class="metric-desc">{{ metric.description }}</div>
+      </div>
+    </div>
+  </div>
+</section>

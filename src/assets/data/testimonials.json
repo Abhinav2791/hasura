@@ -1,0 +1,38 @@
+[
+  {
+    "id": "testimonial-1",
+    "quote": "Hasura transformed how our team thinks about technology. The Java Full Stack program was incredibly practical — within 3 months I landed my first developer role at a product company.",
+    "name": "Priya Sharma",
+    "role": "Software Developer",
+    "company": "TechStart India",
+    "avatar": "PS",
+    "rating": 5
+  },
+  {
+    "id": "testimonial-2",
+    "quote": "The AI & GenAI course is genuinely world-class. The mentors have real industry experience, the projects are real problems, and the career support made all the difference.",
+    "name": "Rahul Verma",
+    "role": "AI Engineer",
+    "company": "DataVision Labs",
+    "avatar": "RV",
+    "rating": 5
+  },
+  {
+    "id": "testimonial-3",
+    "quote": "We partnered with Hasura to build our cloud infrastructure from scratch. Their AWS expertise and attention to architecture quality was exceptional. Highly recommended.",
+    "name": "Anita Krishnamurthy",
+    "role": "CTO",
+    "company": "FinEdge Solutions",
+    "avatar": "AK",
+    "rating": 5
+  },
+  {
+    "id": "testimonial-4",
+    "quote": "After completing the DevOps program at Hasura, I went from zero DevOps experience to managing production Kubernetes clusters at a Series B startup. Game-changing.",
+    "name": "Karthik Nair",
+    "role": "DevOps Engineer",
+    "company": "CloudScale",
+    "avatar": "KN",
+    "rating": 5
+  }
+]

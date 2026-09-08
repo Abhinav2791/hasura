@@ -1,0 +1,213 @@
+.testimonials-section {
+  background: var(--white);
+}
+
+.testimonials-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+  align-items: start;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.testimonials-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  @media (max-width: 900px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1.5px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+    transition: all var(--transition-fast);
+    width: 100%;
+
+    &:hover {
+      background: var(--off-white);
+    }
+
+    &.active {
+      background: var(--gradient-accent-soft);
+      border-color: rgba(59, 130, 246, 0.15);
+
+      .nav-name { color: var(--blue-700); }
+      .nav-avatar { background: var(--gradient-accent); color: var(--white); border-color: transparent; }
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--blue-500);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.nav-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--off-white);
+  border: 1.5px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.nav-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.nav-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--transition-fast);
+}
+
+.nav-role {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.testimonial-card {
+  background: var(--off-white);
+  border: 1px solid var(--gray-100);
+  border-radius: 20px;
+  padding: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+
+  @media (max-width: 640px) {
+    padding: 28px;
+  }
+
+  &__quote-icon {
+    color: var(--gray-200);
+    position: absolute;
+    top: 32px;
+    right: 32px;
+  }
+
+  &__stars {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__quote {
+    font-size: 20px;
+    line-height: 1.65;
+    color: var(--text-primary);
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+
+    @media (max-width: 640px) {
+      font-size: 17px;
+    }
+  }
+
+  &__author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-top: 16px;
+    border-top: 1px solid var(--gray-100);
+  }
+
+  .author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--gradient-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .author-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: block;
+  }
+
+  .author-role {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+.testimonial-nav-btn {
+  width: 36px;
+  height: 36px;
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+
+  &:hover {
+    border-color: var(--blue-500);
+    color: var(--blue-600);
+    background: rgba(59, 130, 246, 0.04);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--blue-500);
+    outline-offset: 2px;
+  }
+}
+
+.testimonial-counter {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+}

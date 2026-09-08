@@ -1,0 +1,57 @@
+<section class="tech-section section-dark section" aria-labelledby="tech-title">
+  <div class="container">
+    <div class="section-header animate-on-scroll">
+      <span class="section-eyebrow" style="color: var(--blue-400);">Our Stack</span>
+      <h2 class="section-title" id="tech-title" style="color: var(--white);">
+        Built With<br>
+        <span class="text-gradient">Modern Technology.</span>
+      </h2>
+      <p class="section-subtitle" style="color: rgba(255,255,255,0.55);">
+        We work with the tools and frameworks that power the world's best digital products.
+      </p>
+    </div>
+
+    <!-- Category Filters -->
+    <div class="tech-section__filters animate-on-scroll" role="group" aria-label="Technology categories">
+      <button
+        class="tech-filter-btn"
+        [class.active]="activeCategory === 'all'"
+        (click)="setCategory('all')"
+        [attr.aria-pressed]="activeCategory === 'all'">
+        All
+      </button>
+      <button
+        *ngFor="let cat of categories"
+        class="tech-filter-btn"
+        [class.active]="activeCategory === cat.id"
+        (click)="setCategory(cat.id)"
+        [attr.aria-pressed]="activeCategory === cat.id">
+        {{ cat.name }}
+      </button>
+    </div>
+
+    <!-- Tech Grid -->
+    <div class="tech-groups animate-on-scroll animate-delay-2">
+      <div class="tech-group" *ngFor="let cat of visibleCategories">
+        <h3 class="tech-group__title">{{ cat.name }}</h3>
+        <div class="tech-group__grid">
+          <div
+            class="tech-badge"
+            *ngFor="let tech of cat.techs"
+            (mouseenter)="hoveredTech = tech.name"
+            (mouseleave)="hoveredTech = null"
+            [class.hovered]="hoveredTech === tech.name"
+            [attr.aria-label]="tech.name + ': ' + tech.desc"
+            role="button"
+            tabindex="0">
+            <div class="tech-badge__abbr">{{ tech.abbr }}</div>
+            <div class="tech-badge__info">
+              <span class="tech-badge__name">{{ tech.name }}</span>
+              <span class="tech-badge__desc">{{ tech.desc }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

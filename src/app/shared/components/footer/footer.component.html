@@ -1,0 +1,116 @@
+<footer class="footer" role="contentinfo">
+  <!-- Top border gradient -->
+  <div class="footer__gradient-line"></div>
+
+  <div class="footer__main">
+    <div class="container">
+      <div class="footer__grid">
+        <!-- Brand Column -->
+        <div class="footer__brand">
+          <a routerLink="/" class="footer__logo" aria-label="Hasura Home">
+            <div class="logo-mark">
+              <svg width="36" height="36" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                  <linearGradient id="footer-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#3B82F6"/>
+                    <stop offset="100%" style="stop-color:#7C3AED"/>
+                  </linearGradient>
+                </defs>
+                <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" fill="url(#footer-logo-grad)" opacity="0.15"/>
+                <polygon points="16,6 27,12.5 27,21.5 16,26 5,21.5 5,12.5" fill="none" stroke="url(#footer-logo-grad)" stroke-width="1.5"/>
+                <polygon points="16,11 22,14.5 22,19.5 16,23 10,19.5 10,14.5" fill="url(#footer-logo-grad)"/>
+              </svg>
+            </div>
+            <div>
+              <div class="footer__logo-name">HASURA</div>
+              <div class="footer__logo-tagline">DREAM • BUILD • GROW</div>
+            </div>
+          </a>
+          <p class="footer__brand-desc">
+            Building digital solutions, developing future-ready technology skills, and turning ambitious ideas into real-world impact.
+          </p>
+          <!-- Social Links -->
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="LinkedIn" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="GitHub" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="Twitter" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="YouTube" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Company Links -->
+        <div class="footer__col">
+          <h3 class="footer__col-title">Company</h3>
+          <ul class="footer__links">
+            <li *ngFor="let link of companyLinks">
+              <a [routerLink]="link.route" class="footer__link">{{ link.label }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Services Links -->
+        <div class="footer__col">
+          <h3 class="footer__col-title">Services</h3>
+          <ul class="footer__links">
+            <li *ngFor="let link of serviceLinks">
+              <a [routerLink]="link.route" class="footer__link">{{ link.label }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Training Links -->
+        <div class="footer__col">
+          <h3 class="footer__col-title">Training</h3>
+          <ul class="footer__links">
+            <li *ngFor="let link of trainingLinks">
+              <a [routerLink]="link.route" class="footer__link">{{ link.label }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="footer__col">
+          <h3 class="footer__col-title">Contact</h3>
+          <ul class="footer__contact">
+            <li>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <a href="mailto:hello@hasura.tech" class="footer__link">hello&#64;hasura.tech</a>
+            </li>
+            <li>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .92h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              <a href="tel:+919876543210" class="footer__link">+91 98765 43210</a>
+            </li>
+            <li>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span class="footer__link-text">India</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="footer__bottom">
+    <div class="container">
+      <div class="footer__bottom-inner">
+        <p class="footer__copyright">
+          &copy; {{ currentYear }} Hasura Technologies. All Rights Reserved.
+        </p>
+        <div class="footer__legal">
+          <a href="#" class="footer__legal-link">Privacy Policy</a>
+          <span class="footer__legal-sep"></span>
+          <a href="#" class="footer__legal-link">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

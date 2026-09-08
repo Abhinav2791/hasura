@@ -1,0 +1,115 @@
+<nav class="navbar" [class.scrolled]="isScrolled" role="navigation" aria-label="Main navigation">
+  <div class="navbar__container">
+    <!-- Logo -->
+    <a class="navbar__logo" routerLink="/" (click)="closeMobileMenu()" aria-label="Hasura Home">
+      <div class="logo-mark">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#3B82F6"/>
+              <stop offset="100%" style="stop-color:#7C3AED"/>
+            </linearGradient>
+          </defs>
+          <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" fill="url(#logo-grad)" opacity="0.15"/>
+          <polygon points="16,6 27,12.5 27,21.5 16,26 5,21.5 5,12.5" fill="none" stroke="url(#logo-grad)" stroke-width="1.5"/>
+          <polygon points="16,11 22,14.5 22,19.5 16,23 10,19.5 10,14.5" fill="url(#logo-grad)"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <span class="logo-name">HASURA</span>
+        <span class="logo-tagline">DREAM • BUILD • GROW</span>
+      </div>
+    </a>
+
+    <!-- Desktop Nav -->
+    <ul class="navbar__links" role="list">
+      <li *ngFor="let link of navLinks">
+        <a
+          [routerLink]="link.route"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: link.route === '/' }"
+          class="navbar__link"
+          (click)="closeMobileMenu()">
+          {{ link.label }}
+        </a>
+      </li>
+    </ul>
+
+    <!-- Desktop CTA -->
+    <div class="navbar__actions">
+      <button class="navbar__search-btn" (click)="openSearch()" aria-label="Search Hasura Platform (Ctrl+K)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <span class="search-kbd">⌘K</span>
+      </button>
+      <a routerLink="/courses" class="btn btn-secondary btn-sm" (click)="closeMobileMenu()">Explore Courses</a>
+      <a routerLink="/contact" class="btn btn-primary btn-sm" (click)="closeMobileMenu()">Get Started</a>
+    </div>
+
+    <!-- Hamburger -->
+    <button
+      class="navbar__hamburger"
+      [class.open]="isMobileMenuOpen"
+      (click)="toggleMobileMenu()"
+      aria-label="Toggle mobile menu"
+      [attr.aria-expanded]="isMobileMenuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu" [class.open]="isMobileMenuOpen" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+  <div class="mobile-menu__backdrop" (click)="closeMobileMenu()"></div>
+  <div class="mobile-menu__panel">
+    <div class="mobile-menu__header">
+      <a class="navbar__logo" routerLink="/" (click)="closeMobileMenu()">
+        <div class="logo-mark">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logo-grad-m" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#3B82F6"/>
+                <stop offset="100%" style="stop-color:#7C3AED"/>
+              </linearGradient>
+            </defs>
+            <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" fill="url(#logo-grad-m)" opacity="0.15"/>
+            <polygon points="16,6 27,12.5 27,21.5 16,26 5,21.5 5,12.5" fill="none" stroke="url(#logo-grad-m)" stroke-width="1.5"/>
+            <polygon points="16,11 22,14.5 22,19.5 16,23 10,19.5 10,14.5" fill="url(#logo-grad-m)"/>
+          </svg>
+        </div>
+        <span class="logo-name">HASURA</span>
+      </a>
+      <button class="mobile-menu__close" (click)="closeMobileMenu()" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <ul class="mobile-menu__links" role="list">
+      <li *ngFor="let link of navLinks; let i = index" [style.animation-delay]="(i * 60) + 'ms'">
+        <a
+          [routerLink]="link.route"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: link.route === '/' }"
+          class="mobile-menu__link"
+          (click)="closeMobileMenu()">
+          {{ link.label }}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+
+    <div class="mobile-menu__footer">
+      <a routerLink="/courses" class="btn btn-secondary w-full" (click)="closeMobileMenu()">Explore Courses</a>
+      <a routerLink="/contact" class="btn btn-primary w-full" (click)="closeMobileMenu()">Get Started</a>
+      <p class="mobile-menu__tagline">DREAM • BUILD • GROW</p>
+    </div>
+  </div>
+</div>

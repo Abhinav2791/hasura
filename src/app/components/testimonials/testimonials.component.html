@@ -1,0 +1,63 @@
+<section class="testimonials-section section" aria-labelledby="testimonials-title">
+  <div class="container">
+    <div class="section-header animate-on-scroll">
+      <span class="section-eyebrow">Testimonials</span>
+      <h2 class="section-title" id="testimonials-title">
+        Heard From the<br>
+        <span class="text-gradient">Hasura Community.</span>
+      </h2>
+    </div>
+
+    <div class="testimonials-layout animate-on-scroll animate-delay-1" *ngIf="testimonials.length > 0">
+      <!-- Side list -->
+      <div class="testimonials-nav">
+        <button
+          class="testimonials-nav__item"
+          *ngFor="let t of testimonials; let i = index"
+          [class.active]="activeIndex === i"
+          (click)="setActive(i)"
+          [attr.aria-pressed]="activeIndex === i"
+          [attr.aria-label]="'View testimonial from ' + t.name">
+          <div class="nav-avatar">{{ t.avatar }}</div>
+          <div class="nav-info">
+            <span class="nav-name">{{ t.name }}</span>
+            <span class="nav-role">{{ t.role }} · {{ t.company }}</span>
+          </div>
+        </button>
+      </div>
+
+      <!-- Active testimonial -->
+      <div class="testimonial-card" *ngIf="testimonials[activeIndex]">
+        <div class="testimonial-card__quote-icon" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+        </div>
+
+        <div class="testimonial-card__stars" role="img" [attr.aria-label]="testimonials[activeIndex].rating + ' out of 5 stars'">
+          <svg *ngFor="let star of getRatingArray(testimonials[activeIndex].rating)" width="16" height="16" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+
+        <blockquote class="testimonial-card__quote">
+          "{{ testimonials[activeIndex].quote }}"
+        </blockquote>
+
+        <div class="testimonial-card__author">
+          <div class="author-avatar">{{ testimonials[activeIndex].avatar }}</div>
+          <div class="author-info">
+            <strong class="author-name">{{ testimonials[activeIndex].name }}</strong>
+            <span class="author-role">{{ testimonials[activeIndex].role }} · {{ testimonials[activeIndex].company }}</span>
+          </div>
+        </div>
+
+        <div class="testimonial-card__controls">
+          <button class="testimonial-nav-btn" (click)="prev()" aria-label="Previous testimonial">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <span class="testimonial-counter" aria-live="polite">{{ activeIndex + 1 }} / {{ testimonials.length }}</span>
+          <button class="testimonial-nav-btn" (click)="next()" aria-label="Next testimonial">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

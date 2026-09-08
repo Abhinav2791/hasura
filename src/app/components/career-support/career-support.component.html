@@ -1,0 +1,124 @@
+<section class="career-support-section section section-dark" id="career-support" aria-labelledby="career-support-title">
+  <!-- Ambient background glow -->
+  <div class="career-support__glow" aria-hidden="true">
+    <div class="glow-orb glow-orb--left"></div>
+    <div class="glow-orb glow-orb--right"></div>
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="section-header animate-on-scroll">
+      <span class="section-eyebrow" style="color: var(--blue-400);">Career & Placement Ecosystem</span>
+      <h2 class="section-title" id="career-support-title">
+        We Don't Just Teach.<br>
+        <span class="text-gradient">We Launch High-Trajectory Careers.</span>
+      </h2>
+      <p class="section-subtitle">
+        Bridging the gap between knowing syntax and performing as a high-impact software engineer. Comprehensive career acceleration built directly into every program.
+      </p>
+    </div>
+
+    <!-- Career Metrics Strip -->
+    <div class="career-metrics-strip animate-on-scroll">
+      <div class="metric-card">
+        <span class="metric-num text-gradient">94%</span>
+        <span class="metric-label">Placement Success Rate</span>
+        <span class="metric-sub">Within 120 days of graduation</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-num text-gradient">50+</span>
+        <span class="metric-label">Hiring Partners</span>
+        <span class="metric-sub">Startups to global tech enterprises</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-num text-gradient">14 LPA</span>
+        <span class="metric-label">Highest Package</span>
+        <span class="metric-sub">8.2 LPA average alumni package</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-num text-gradient">1-on-1</span>
+        <span class="metric-label">Dedicated Mentorship</span>
+        <span class="metric-sub">Weekly live review & mock rounds</span>
+      </div>
+    </div>
+
+    <!-- 4 Pillars Interactive Tabs -->
+    <div class="pillars-container animate-on-scroll">
+      <div class="pillars-nav" role="tablist" aria-label="Career Acceleration Pillars">
+        <button
+          *ngFor="let pillar of pillars; let i = index"
+          class="pillar-tab"
+          [class.active]="activePillarIndex === i"
+          (click)="setActivePillar(i)"
+          role="tab"
+          [attr.aria-selected]="activePillarIndex === i"
+          [attr.aria-controls]="'pillar-panel-' + i"
+          [id]="'pillar-tab-' + i">
+          <span class="tab-index">0{{ i + 1 }}</span>
+          <span class="tab-title">{{ pillar.title }}</span>
+        </button>
+      </div>
+
+      <!-- Active Pillar Card -->
+      <div
+        class="pillar-card"
+        *ngFor="let pillar of pillars; let i = index"
+        [class.active]="activePillarIndex === i"
+        role="tabpanel"
+        [id]="'pillar-panel-' + i"
+        [attr.aria-labelledby]="'pillar-tab-' + i"
+        [hidden]="activePillarIndex !== i">
+        <div class="pillar-card__header">
+          <div class="pillar-badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/>
+            </svg>
+            Pillar 0{{ i + 1 }}
+          </div>
+          <h3 class="pillar-card__title">{{ pillar.title }}</h3>
+          <p class="pillar-card__subtitle">{{ pillar.subtitle }}</p>
+        </div>
+
+        <p class="pillar-card__desc">{{ pillar.description }}</p>
+
+        <div class="pillar-features-grid">
+          <div class="feature-item" *ngFor="let feat of pillar.features">
+            <div class="feature-check" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <span>{{ feat }}</span>
+          </div>
+        </div>
+
+        <div class="pillar-card__footer">
+          <a routerLink="/contact" class="btn btn-primary btn-sm">
+            Book Free Career Counseling
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a routerLink="/courses" class="btn btn-ghost btn-sm">Browse Matching Programs</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Career Roadmap Timeline -->
+    <div class="roadmap-section animate-on-scroll">
+      <div class="roadmap-header text-center">
+        <span class="section-eyebrow" style="color: var(--blue-400);">Structured Progression</span>
+        <h3 class="roadmap-title">The Hasura Career Roadmap</h3>
+        <p class="roadmap-subtitle">From Day One onboarding to your first day as an engineer</p>
+      </div>
+
+      <div class="roadmap-grid">
+        <div class="roadmap-step" *ngFor="let step of steps">
+          <div class="step-num">{{ step.step }}</div>
+          <div class="step-duration">{{ step.duration }}</div>
+          <h4 class="step-title">{{ step.title }}</h4>
+          <p class="step-desc">{{ step.desc }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

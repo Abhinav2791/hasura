@@ -1,0 +1,197 @@
+.search-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 11, 24, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 9990;
+  animation: fadeIn 0.2s ease forwards;
+}
+
+.search-palette {
+  position: fixed;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(640px, 92vw);
+  background: var(--navy-900);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+  z-index: 9995;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75), 0 0 40px rgba(59, 130, 246, 0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.search-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  .search-icon {
+    color: var(--blue-400);
+    flex-shrink: 0;
+  }
+
+  input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    color: var(--white);
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  .kbd-badge {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+  }
+}
+
+.search-results {
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover, &.selected {
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+
+    .result-arrow {
+      opacity: 1;
+      transform: translateX(3px);
+      color: var(--blue-400);
+    }
+  }
+
+  .result-cat {
+    flex-shrink: 0;
+
+    .cat-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+
+      &--course { background: rgba(59, 130, 246, 0.15); color: #60A5FA; }
+      &--service { background: rgba(124, 58, 237, 0.15); color: #C084FC; }
+      &--project { background: rgba(16, 185, 129, 0.15); color: #34D399; }
+      &--page { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
+    }
+  }
+
+  .result-info {
+    flex: 1;
+    min-width: 0;
+
+    .result-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .result-sub {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .result-arrow {
+    opacity: 0;
+    transition: all 0.15s ease;
+    color: rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
+  }
+}
+
+.empty-results {
+  text-align: center;
+  padding: 32px 16px;
+
+  p {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  span {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+  }
+}
+
+.palette-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  background: rgba(0, 0, 0, 0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+  .key-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+
+    .kbd {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translate(-50%, -15px) scale(0.98); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
