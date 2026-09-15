@@ -34,9 +34,11 @@ export class ProjectsSectionComponent implements OnInit {
   }
 
   private applyFilter(): void {
-    let list = this.showAll ? this.allProjects : this.allProjects.filter(p => p.featured);
+    let list = this.allProjects;
     if (this.activeFilter !== 'All') {
-      list = this.allProjects.filter(p => p.industry === this.activeFilter);
+      list = list.filter(p => p.industry === this.activeFilter);
+    } else if (!this.showAll) {
+      list = list.filter(p => p.featured);
     }
     this.filteredProjects = list;
   }

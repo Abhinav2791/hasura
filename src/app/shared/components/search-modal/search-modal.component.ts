@@ -14,7 +14,7 @@ interface SearchResult {
   templateUrl: './search-modal.component.html',
   styleUrls: ['./search-modal.component.scss']
 })
-export class SearchModalComponent implements OnInit {
+export class SearchModalComponent implements OnInit, OnDestroy {
   isOpen = false;
   query = '';
   selectedIndex = 0;
@@ -115,5 +115,11 @@ export class SearchModalComponent implements OnInit {
   selectItem(item: SearchResult): void {
     this.closeModal();
     this.router.navigate([item.route]);
+  }
+
+  ngOnDestroy(): void {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('open-search', () => this.toggleModal());
+    }
   }
 }

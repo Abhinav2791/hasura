@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from '../../core/services/toast.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-contact-section',
   templateUrl: './contact-section.component.html',
   styleUrls: ['./contact-section.component.scss']
 })
-export class ContactSectionComponent {
+export class ContactSectionComponent implements OnInit {
   contactForm: FormGroup;
   formState: 'idle' | 'loading' | 'success' | 'error' = 'idle';
 
@@ -22,7 +23,11 @@ export class ContactSectionComponent {
     'Other'
   ];
 
-  constructor(private fb: FormBuilder, private toastService: ToastService) {
+  constructor(
+    private fb: FormBuilder,
+    private toastService: ToastService,
+    private route: ActivatedRoute
+  ) {
     this.contactForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
@@ -30,6 +35,24 @@ export class ContactSectionComponent {
       phone: [''],
       subject: ['', Validators.required],
       message: ['', [Validators.required, Validators.minLength(20)]],
+    });
+  }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      if (params['subject']) {
+        const matched = this.helpOptions.find(
+          opt => opt.toLowerCase() === params['subject'].toLowerCase()
+        );
+        if (matched) {
+          this.contactForm.patchValue({ subject: matched });
+        }
+      }
+      if (params['project']) {
+        this.contactForm.patchValue({
+          message: `Inquiring about project scope similar to: ${params['project']}. `
+        });
+      }
     });
   }
 

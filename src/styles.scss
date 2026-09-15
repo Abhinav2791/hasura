@@ -1,7 +1,10 @@
-  /* =============================================
+/* =============================================
    HASURA GLOBAL STYLES
    Premium Technology Company Website
    ============================================= */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800;900&display=swap');
 
 /* CSS Custom Properties */
 :root {
@@ -26,6 +29,12 @@
   --cyan-400: #22D3EE;
   --cyan-500: #06B6D4;
 
+  --emerald-400: #34D399;
+  --emerald-500: #10B981;
+
+  --amber-400: #FBBF24;
+  --rose-400: #FB7185;
+
   --white: #FFFFFF;
   --off-white: #F8FAFC;
   --gray-50: #F1F5F9;
@@ -45,6 +54,9 @@
   --gradient-accent-soft: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%);
   --gradient-navy: linear-gradient(180deg, var(--navy-950) 0%, var(--navy-800) 100%);
   --gradient-hero: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 60%, #0F1B3E 100%);
+  --gradient-blue-cyan: linear-gradient(135deg, var(--blue-400) 0%, var(--cyan-400) 100%);
+  --gradient-violet-rose: linear-gradient(135deg, var(--violet-400) 0%, var(--rose-400) 100%);
+  --gradient-emerald: linear-gradient(135deg, var(--emerald-400) 0%, var(--cyan-400) 100%);
 
   /* Spacing System (8px base) */
   --space-1: 8px;
@@ -79,6 +91,7 @@
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
+  --radius-2xl: 32px;
   --radius-full: 9999px;
 
   /* Shadows */
@@ -86,13 +99,15 @@
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
   --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.2);
   --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.3);
-  --shadow-glow: 0 0 30px rgba(59, 130, 246, 0.15);
-  --shadow-glow-violet: 0 0 30px rgba(124, 58, 237, 0.15);
+  --shadow-glow: 0 0 30px rgba(59, 130, 246, 0.2);
+  --shadow-glow-violet: 0 0 30px rgba(124, 58, 237, 0.2);
+  --shadow-glow-lg: 0 0 60px rgba(59, 130, 246, 0.25);
 
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Z-index layers */
   --z-base: 1;
@@ -136,6 +151,10 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 a {
@@ -209,6 +228,13 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
   background-clip: text;
 }
 
+.text-gradient-violet {
+  background: linear-gradient(135deg, var(--violet-400), var(--rose-400));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* =============================================
    LAYOUT
    ============================================= */
@@ -268,7 +294,7 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
   align-items: center;
   gap: 8px;
   font-size: var(--text-xs);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--blue-500);
@@ -278,8 +304,9 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
   &::after {
     content: '';
     width: 24px;
-    height: 1px;
+    height: 1.5px;
     background: var(--gradient-accent);
+    border-radius: 2px;
   }
 }
 
@@ -348,11 +375,11 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 .btn-primary {
   background: var(--gradient-accent);
   color: var(--white);
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 10px 35px rgba(59, 130, 246, 0.45);
   }
 
   &:active {
@@ -363,12 +390,12 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 .btn-secondary {
   background: rgba(255, 255, 255, 0.06);
   color: var(--white);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(8px);
 
   &:hover {
     background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.24);
     transform: translateY(-2px);
   }
 }
@@ -382,6 +409,7 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
     background: var(--blue-500);
     color: var(--white);
     transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
   }
 }
 
@@ -432,8 +460,25 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
   transition: all var(--transition-base);
 
   &:hover {
-    border-color: rgba(59, 130, 246, 0.2);
-    box-shadow: 0 8px 40px rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.25);
+    box-shadow: 0 8px 40px rgba(59, 130, 246, 0.12), 0 0 0 1px rgba(59, 130, 246, 0.1);
+    transform: translateY(-4px);
+  }
+}
+
+/* Glassmorphism card */
+.card-glass {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  transition: all var(--transition-base);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(59, 130, 246, 0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 0 30px rgba(59, 130, 246, 0.08);
   }
 }
 
@@ -452,12 +497,42 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
   background: rgba(59, 130, 246, 0.08);
   color: var(--blue-500);
   border: 1px solid rgba(59, 130, 246, 0.15);
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background: rgba(59, 130, 246, 0.14);
+    border-color: rgba(59, 130, 246, 0.3);
+  }
 }
 
 .tag-dark {
   background: rgba(59, 130, 246, 0.1);
   color: var(--blue-400);
   border-color: rgba(59, 130, 246, 0.2);
+}
+
+.badge-new {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--emerald-400);
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  letter-spacing: 0.08em;
+}
+
+.badge-hot {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: rgba(251, 113, 133, 0.15);
+  color: var(--rose-400);
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(251, 113, 133, 0.25);
+  letter-spacing: 0.08em;
 }
 
 /* =============================================
@@ -509,7 +584,7 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 
 @keyframes pulse-glow {
   0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); }
-  50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.4); }
+  50% { box-shadow: 0 0 50px rgba(59, 130, 246, 0.5); }
 }
 
 @keyframes gradientShift {
@@ -525,6 +600,37 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 
 @keyframes dash {
   to { stroke-dashoffset: 0; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* Scroll animation classes */
@@ -638,6 +744,8 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 .w-full { width: 100%; }
 
 .mt-auto { margin-top: auto; }
+.mt-1 { margin-top: 4px; }
+.mt-2 { margin-top: 8px; }
 
 .gap-1 { gap: var(--space-1); }
 .gap-2 { gap: var(--space-2); }
@@ -667,4 +775,82 @@ h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
     pointer-events: none;
     z-index: 1;
   }
+}
+
+/* =============================================
+   LOADING SHIMMER
+   ============================================= */
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.03) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+/* =============================================
+   GLASSMORPHISM
+   ============================================= */
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+/* =============================================
+   GRADIENT BORDERS
+   ============================================= */
+
+.gradient-border {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: var(--gradient-accent);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  &:hover::before {
+    opacity: 0.4;
+  }
+}
+
+/* =============================================
+   SPINNER
+   ============================================= */
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-top-color: var(--white);
+  border-radius: 50%;
+  animation: rotate 0.7s linear infinite;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.btn-spinner-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 }

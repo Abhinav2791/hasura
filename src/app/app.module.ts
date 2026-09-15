@@ -44,11 +44,15 @@ import { CoursesPageComponent } from './pages/courses/courses.component';
 import { ProjectsPageComponent } from './pages/projects/projects.component';
 import { CareersPageComponent } from './pages/careers/careers.component';
 import { ContactPageComponent } from './pages/contact/contact.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 // Services
 import { DataService } from './core/services/data.service';
 import { ScrollService } from './core/services/scroll.service';
 import { ToastService } from './core/services/toast.service';
+import { AuthService } from './core/services/auth.service';
 
 @NgModule({
   declarations: [
@@ -87,6 +91,9 @@ import { ToastService } from './core/services/toast.service';
     ProjectsPageComponent,
     CareersPageComponent,
     ContactPageComponent,
+    LoginComponent,
+    SignupComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,6 +107,7 @@ import { ToastService } from './core/services/toast.service';
     DataService,
     ScrollService,
     ToastService,
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })

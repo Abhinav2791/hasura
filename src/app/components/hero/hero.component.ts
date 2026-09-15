@@ -12,6 +12,13 @@ export class HeroComponent implements OnInit, AfterViewInit, OnDestroy {
   private animFrameId: number | null = null;
   private boundMouseHandler!: EventListener;
 
+  // Typewriter
+  words = ['Dream It.', 'Build It.', 'Ship It.', 'Scale It.'];
+  currentWordIndex = 0;
+  displayText = '';
+  private typeInterval: any;
+  private isDeleting = false;
+
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -21,7 +28,31 @@ export class HeroComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     if (this.isBrowser) {
       this.initParallax();
+      this.startTypewriter();
     }
+  }
+
+  private startTypewriter(): void {
+    const word = this.words[this.currentWordIndex];
+    const speed = this.isDeleting ? 60 : 110;
+
+    if (!this.isDeleting && this.displayText.length < word.length) {
+      this.displayText = word.substring(0, this.displayText.length + 1);
+    } else if (this.isDeleting && this.displayText.length > 0) {
+      this.displayText = word.substring(0, this.displayText.length - 1);
+    } else if (!this.isDeleting && this.displayText.length === word.length) {
+      // Pause at full word
+      this.typeInterval = setTimeout(() => {
+        this.isDeleting = true;
+        this.startTypewriter();
+      }, 1800);
+      return;
+    } else if (this.isDeleting && this.displayText.length === 0) {
+      this.isDeleting = false;
+      this.currentWordIndex = (this.currentWordIndex + 1) % this.words.length;
+    }
+
+    this.typeInterval = setTimeout(() => this.startTypewriter(), speed);
   }
 
   private initParallax(): void {
@@ -51,6 +82,9 @@ export class HeroComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     if (this.animFrameId !== null) {
       cancelAnimationFrame(this.animFrameId);
+    }
+    if (this.typeInterval) {
+      clearTimeout(this.typeInterval);
     }
   }
 }

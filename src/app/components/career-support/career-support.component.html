@@ -42,62 +42,164 @@
       </div>
     </div>
 
-    <!-- 4 Pillars Interactive Tabs -->
+    <!-- 4 Pillars Interactive Layout -->
     <div class="pillars-container animate-on-scroll">
-      <div class="pillars-nav" role="tablist" aria-label="Career Acceleration Pillars">
-        <button
-          *ngFor="let pillar of pillars; let i = index"
-          class="pillar-tab"
-          [class.active]="activePillarIndex === i"
-          (click)="setActivePillar(i)"
-          role="tab"
-          [attr.aria-selected]="activePillarIndex === i"
-          [attr.aria-controls]="'pillar-panel-' + i"
-          [id]="'pillar-tab-' + i">
-          <span class="tab-index">0{{ i + 1 }}</span>
-          <span class="tab-title">{{ pillar.title }}</span>
-        </button>
+      
+      <!-- Left Column: Navigation Tabs + Space-Filling Fast-Track Card -->
+      <div class="pillars-sidebar">
+        <div class="pillars-nav" role="tablist" aria-label="Career Acceleration Pillars">
+          <button
+            *ngFor="let pillar of pillars; let i = index"
+            class="pillar-tab"
+            [class.active]="activePillarIndex === i"
+            (click)="setActivePillar(i)"
+            (keydown)="onPillarKeyDown($event, i)"
+            role="tab"
+            [attr.aria-selected]="activePillarIndex === i"
+            [attr.aria-controls]="'pillar-panel-' + i"
+            [id]="'pillar-tab-' + i"
+            tabindex="0">
+            <span class="tab-index">0{{ i + 1 }}</span>
+            <span class="tab-title">{{ pillar.title }}</span>
+            <svg class="tab-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Space-Filling Card under Pillar 04: Fast-Track Counseling & Placement Hub -->
+        <div class="pillars-fasttrack-card">
+          <div class="fasttrack-badge">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span>FAST-TRACK ADVISORY</span>
+          </div>
+          <h4 class="fasttrack-title">Need Personalized Career Guidance?</h4>
+          <p class="fasttrack-desc">
+            Speak 1-on-1 with an engineering mentor to assess your current profile and map your transition into high-paying engineering roles.
+          </p>
+          <div class="fasttrack-stats">
+            <div class="f-stat">
+              <span class="f-num text-gradient">94%</span>
+              <span class="f-lbl">Hired</span>
+            </div>
+            <div class="f-stat">
+              <span class="f-num text-gradient">50+</span>
+              <span class="f-lbl">Partners</span>
+            </div>
+            <div class="f-stat">
+              <span class="f-num text-gradient">8.2 L</span>
+              <span class="f-lbl">Avg CTC</span>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-primary btn-sm w-full fasttrack-btn"
+            (click)="openCounselingModal()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 3.07 9.81a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 2 .92h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L6.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            Book 1-on-1 Counseling
+          </button>
+        </div>
       </div>
 
-      <!-- Active Pillar Card -->
-      <div
-        class="pillar-card"
-        *ngFor="let pillar of pillars; let i = index"
-        [class.active]="activePillarIndex === i"
-        role="tabpanel"
-        [id]="'pillar-panel-' + i"
-        [attr.aria-labelledby]="'pillar-tab-' + i"
-        [hidden]="activePillarIndex !== i">
-        <div class="pillar-card__header">
-          <div class="pillar-badge">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/>
-            </svg>
-            Pillar 0{{ i + 1 }}
-          </div>
-          <h3 class="pillar-card__title">{{ pillar.title }}</h3>
-          <p class="pillar-card__subtitle">{{ pillar.subtitle }}</p>
-        </div>
-
-        <p class="pillar-card__desc">{{ pillar.description }}</p>
-
-        <div class="pillar-features-grid">
-          <div class="feature-item" *ngFor="let feat of pillar.features">
-            <div class="feature-check" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"/>
+      <!-- Right Column: Active Pillar Card -->
+      <div class="pillars-content-area">
+        <div
+          class="pillar-card active"
+          role="tabpanel"
+          [id]="'pillar-panel-' + activePillarIndex"
+          [attr.aria-labelledby]="'pillar-tab-' + activePillarIndex">
+          
+          <div class="pillar-card__header">
+            <div class="pillar-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/>
               </svg>
+              Pillar 0{{ activePillarIndex + 1 }}
             </div>
-            <span>{{ feat }}</span>
+            <h3 class="pillar-card__title">{{ pillars[activePillarIndex].title }}</h3>
+            <p class="pillar-card__subtitle">{{ pillars[activePillarIndex].subtitle }}</p>
           </div>
-        </div>
 
-        <div class="pillar-card__footer">
-          <a routerLink="/contact" class="btn btn-primary btn-sm">
-            Book Free Career Counseling
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-          <a routerLink="/courses" class="btn btn-ghost btn-sm">Browse Matching Programs</a>
+          <p class="pillar-card__desc">{{ pillars[activePillarIndex].description }}</p>
+
+          <!-- Standard Pillar Features Grid -->
+          <div class="pillar-features-grid">
+            <div class="feature-item" *ngFor="let feat of pillars[activePillarIndex].features">
+              <div class="feature-check" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <span>{{ feat }}</span>
+            </div>
+          </div>
+
+          <!-- ENHANCED FOR PILLAR 04: Hiring Partner Domains & Direct Pathways -->
+          <div class="pillar-domains-spotlight" *ngIf="activePillarIndex === 3">
+            <div class="domains-spotlight-header">
+              <span class="spotlight-title">Active Hiring Sectors & Ecosystem Pathways</span>
+              <span class="spotlight-badge">50+ Verified Partners</span>
+            </div>
+            <div class="domains-grid">
+              <div class="domain-card" *ngFor="let domain of hiringDomains">
+                <div class="domain-top">
+                  <span class="domain-name">{{ domain.name }}</span>
+                  <span class="domain-count">{{ domain.count }}</span>
+                </div>
+                <div class="domain-techs">
+                  <span class="tech-chip" *ngFor="let t of domain.techs">{{ t }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pillar-perks-strip">
+              <div class="perk-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Direct HR Introductions</span>
+              </div>
+              <div class="perk-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Salary Negotiation Coaching</span>
+              </div>
+              <div class="perk-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                <span>90-Day Post-Placement Support</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Action Buttons -->
+          <div class="pillar-card__footer">
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              (click)="openCounselingModal()">
+              Book Free Career Counseling
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </button>
+            <a routerLink="/courses" class="btn btn-ghost btn-sm">Browse Matching Programs</a>
+            <a routerLink="/careers" class="btn btn-outline btn-sm">View Placed Alumni</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Hiring Partner Network Marquee Showcase -->
+    <div class="hiring-partners-strip animate-on-scroll">
+      <div class="partners-strip-header">
+        <span class="partners-eyebrow">OUR HIRING NETWORK</span>
+        <span class="partners-sub">Engineering squads, high-growth startups & enterprises hiring Hasura alumni</span>
+      </div>
+      <div class="partners-badges-wrap">
+        <div class="partner-badge-pill" *ngFor="let partner of hiringPartners">
+          <span class="partner-dot"></span>
+          <span class="partner-name">{{ partner }}</span>
         </div>
       </div>
     </div>
@@ -107,11 +209,18 @@
       <div class="roadmap-header text-center">
         <span class="section-eyebrow" style="color: var(--blue-400);">Structured Progression</span>
         <h3 class="roadmap-title">The Hasura Career Roadmap</h3>
-        <p class="roadmap-subtitle">From Day One onboarding to your first day as an engineer</p>
+        <p class="roadmap-subtitle">From Day One onboarding to your first day as a software engineer</p>
       </div>
 
       <div class="roadmap-grid">
-        <div class="roadmap-step" *ngFor="let step of steps">
+        <div
+          class="roadmap-step"
+          *ngFor="let step of steps; let sIndex = index"
+          [class.active]="activeRoadmapStep === sIndex"
+          (click)="activeRoadmapStep = sIndex"
+          tabindex="0"
+          role="button"
+          [attr.aria-label]="'Step ' + step.step + ': ' + step.title">
           <div class="step-num">{{ step.step }}</div>
           <div class="step-duration">{{ step.duration }}</div>
           <h4 class="step-title">{{ step.title }}</h4>
@@ -122,3 +231,153 @@
 
   </div>
 </section>
+
+<!-- Career Counseling Interactive Modal -->
+<div
+  class="counseling-modal-overlay"
+  *ngIf="isCounselingModalOpen"
+  (click)="closeCounselingModal()"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="counseling-modal-title">
+  
+  <div class="counseling-modal-card" (click)="$event.stopPropagation()">
+    <!-- Close button -->
+    <button
+      type="button"
+      class="modal-close-btn"
+      (click)="closeCounselingModal()"
+      aria-label="Close counseling modal">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <div class="modal-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/>
+        </svg>
+        1-on-1 Profile Assessment
+      </div>
+      <h3 id="counseling-modal-title" class="modal-title">
+        Schedule Free Career Counseling
+      </h3>
+      <p class="modal-desc">
+        Talk directly with an experienced tech mentor. We will review your current skills, assess target roles, and create a realistic timeline to break into high-paying engineering positions.
+      </p>
+    </div>
+
+    <!-- Success Message -->
+    <div class="modal-success" *ngIf="isSuccess">
+      <div class="success-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <h4>Session Scheduled!</h4>
+      <p>Thank you! Our career counselor will contact you via phone/WhatsApp within 24 hours to confirm your preferred slot.</p>
+    </div>
+
+    <!-- Form -->
+    <form
+      *ngIf="!isSuccess"
+      [formGroup]="counselingForm"
+      (ngSubmit)="submitCounseling()"
+      class="modal-form"
+      novalidate>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="counseling-name">Full Name <span class="required">*</span></label>
+          <input
+            id="counseling-name"
+            type="text"
+            formControlName="fullName"
+            placeholder="e.g. Rahul Sharma"
+            [class.is-invalid]="counselingForm.get('fullName')?.invalid && counselingForm.get('fullName')?.touched">
+          <span class="field-error" *ngIf="counselingForm.get('fullName')?.invalid && counselingForm.get('fullName')?.touched">
+            Please enter your full name
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="counseling-phone">Phone Number <span class="required">*</span></label>
+          <input
+            id="counseling-phone"
+            type="tel"
+            formControlName="phone"
+            placeholder="+91 98765 43210"
+            [class.is-invalid]="counselingForm.get('phone')?.invalid && counselingForm.get('phone')?.touched">
+          <span class="field-error" *ngIf="counselingForm.get('phone')?.invalid && counselingForm.get('phone')?.touched">
+            Valid phone number required
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="counseling-email">Email Address <span class="required">*</span></label>
+          <input
+            id="counseling-email"
+            type="email"
+            formControlName="email"
+            placeholder="rahul@example.com"
+            [class.is-invalid]="counselingForm.get('email')?.invalid && counselingForm.get('email')?.touched">
+          <span class="field-error" *ngIf="counselingForm.get('email')?.invalid && counselingForm.get('email')?.touched">
+            Valid email address required
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="counseling-domain">Domain of Interest <span class="required">*</span></label>
+          <select id="counseling-domain" formControlName="domainInterest">
+            <option value="Full Stack Development">Java / Full Stack Development</option>
+            <option value="Generative AI & LLMs">Generative AI & LLM Systems</option>
+            <option value="AWS Cloud & DevOps">AWS Cloud & DevOps Engineering</option>
+            <option value="UI/UX Design Systems">UI/UX Design Systems</option>
+            <option value="Software Career Transition">Non-Tech to Tech Career Transition</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="counseling-exp">Current Background <span class="required">*</span></label>
+        <select id="counseling-exp" formControlName="experienceLevel">
+          <option value="Student / Fresher">College Student / Fresh Graduate</option>
+          <option value="0-2 Years Non-Tech">Working Professional (Non-Tech)</option>
+          <option value="1-3 Years Tech">Junior Software Engineer (1-3 Years)</option>
+          <option value="3+ Years Tech">Mid-Senior Engineer (3+ Years)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="counseling-notes">Career Goals / Questions (Optional)</label>
+        <textarea
+          id="counseling-notes"
+          formControlName="notes"
+          rows="3"
+          placeholder="Tell us about your target roles, companies, or specific questions..."></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button
+          type="button"
+          class="btn btn-secondary btn-sm"
+          (click)="closeCounselingModal()">
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary btn-sm"
+          [disabled]="isSubmitting">
+          <span *ngIf="!isSubmitting">Confirm Counseling Session</span>
+          <span *ngIf="isSubmitting">Submitting...</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

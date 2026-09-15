@@ -1,4 +1,4 @@
-  import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
@@ -8,6 +8,9 @@ import { CoursesPageComponent } from './pages/courses/courses.component';
 import { ProjectsPageComponent } from './pages/projects/projects.component';
 import { CareersPageComponent } from './pages/careers/careers.component';
 import { ContactPageComponent } from './pages/contact/contact.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, title: 'HASURA | Dream • Build • Grow' },
@@ -18,6 +21,10 @@ const routes: Routes = [
   { path: 'projects', component: ProjectsPageComponent, title: 'Projects | HASURA' },
   { path: 'careers', component: CareersPageComponent, title: 'Careers | HASURA' },
   { path: 'contact', component: ContactPageComponent, title: 'Contact | HASURA' },
+  { path: 'login', component: LoginComponent, title: 'Log In | HASURA' },
+  { path: 'signup', component: SignupComponent, title: 'Create Account | HASURA' },
+  { path: 'forgot-password', component: ForgotPasswordComponent, title: 'Reset Password | HASURA' },
+  { path: 'forgot', redirectTo: 'forgot-password', pathMatch: 'full' },
   { path: '**', redirectTo: '' }
 ];
 

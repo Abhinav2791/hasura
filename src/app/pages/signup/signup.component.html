@@ -1,0 +1,238 @@
+<main id="main-content" class="auth-page">
+  <!-- Glowing Background Atmosphere -->
+  <div class="auth-bg" aria-hidden="true">
+    <div class="auth-orb auth-orb--1"></div>
+    <div class="auth-orb auth-orb--2"></div>
+    <div class="auth-grid-overlay"></div>
+  </div>
+
+  <div class="container auth-container">
+    <div class="auth-card">
+      <!-- Card Header -->
+      <div class="auth-card__header">
+        <a routerLink="/" class="auth-logo" aria-label="Return to Hasura Home">
+          <div class="logo-mark">
+            <svg width="34" height="34" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="auth-signup-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#3B82F6"/>
+                  <stop offset="100%" style="stop-color:#7C3AED"/>
+                </linearGradient>
+              </defs>
+              <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" fill="url(#auth-signup-grad)" opacity="0.15"/>
+              <polygon points="16,6 27,12.5 27,21.5 16,26 5,21.5 5,12.5" fill="none" stroke="url(#auth-signup-grad)" stroke-width="1.5"/>
+              <polygon points="16,11 22,14.5 22,19.5 16,23 10,19.5 10,14.5" fill="url(#auth-signup-grad)"/>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <span class="logo-name">HASURA</span>
+            <span class="logo-tagline">DREAM • BUILD • GROW</span>
+          </div>
+        </a>
+
+        <h1 class="auth-title">Create Your Account</h1>
+        <p class="auth-subtitle">Join engineers, students, and businesses scaling with Hasura</p>
+      </div>
+
+      <!-- Quick Switch Banner: Already have an account? -->
+      <div class="quick-switch-banner">
+        <span>Already have an account?</span>
+        <a routerLink="/login" class="switch-btn">Log In</a>
+      </div>
+
+      <!-- OAuth Social Sign In -->
+      <div class="oauth-buttons">
+        <button type="button" class="btn-oauth" (click)="signUpWithOAuth('Google')" [disabled]="isLoading">
+          <svg width="18" height="18" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+            <path fill="#FBBC05" d="M5.28 14.27A7.2 7.2 0 014.9 12c0-.79.14-1.56.38-2.27V6.58H1.25A11.96 11.96 0 000 12c0 1.92.45 3.74 1.25 5.42l4.03-3.15z"/>
+            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+          </svg>
+          Google
+        </button>
+        <button type="button" class="btn-oauth" (click)="signUpWithOAuth('GitHub')" [disabled]="isLoading">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </button>
+      </div>
+
+      <div class="auth-divider">
+        <span>or sign up with email</span>
+      </div>
+
+      <!-- Reactive Form -->
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="auth-form" novalidate>
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="fullName" class="form-label">Full Name</label>
+          <div class="input-wrapper" [class.input-error]="submitted && f['fullName'].errors">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <input
+              id="fullName"
+              type="text"
+              formControlName="fullName"
+              class="form-input"
+              placeholder="e.g. Alex Chen"
+              autocomplete="name"
+            />
+          </div>
+          <div *ngIf="submitted && f['fullName'].errors" class="form-error">
+            <span *ngIf="f['fullName'].errors['required']">Full name is required.</span>
+            <span *ngIf="f['fullName'].errors['minlength']">Name must be at least 2 characters.</span>
+          </div>
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-group">
+          <label for="signup-email" class="form-label">Email Address</label>
+          <div class="input-wrapper" [class.input-error]="submitted && f['email'].errors">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <input
+              id="signup-email"
+              type="email"
+              formControlName="email"
+              class="form-input"
+              placeholder="you@company.com"
+              autocomplete="email"
+            />
+          </div>
+          <div *ngIf="submitted && f['email'].errors" class="form-error">
+            <span *ngIf="f['email'].errors['required']">Email address is required.</span>
+            <span *ngIf="f['email'].errors['email']">Please provide a valid email address.</span>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="signup-password" class="form-label">Create Password</label>
+          <div class="input-wrapper" [class.input-error]="submitted && f['password'].errors">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <input
+              id="signup-password"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              class="form-input"
+              placeholder="Minimum 8 chars with uppercase & number"
+              autocomplete="new-password"
+            />
+            <button
+              type="button"
+              class="btn-eye"
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+              <svg *ngIf="!showPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg *ngIf="showPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Password Strength Meter -->
+          <div *ngIf="f['password'].value" class="strength-meter">
+            <div class="strength-bar-track">
+              <div class="strength-bar-fill" [ngClass]="passwordStrengthClass" [style.width.%]="passwordStrength * 25"></div>
+            </div>
+            <div class="strength-status">
+              <span class="strength-hint">Strength:</span>
+              <span class="strength-val" [ngClass]="passwordStrengthClass">{{ passwordStrengthLabel }}</span>
+            </div>
+          </div>
+
+          <div *ngIf="submitted && f['password'].errors" class="form-error">
+            <span *ngIf="f['password'].errors['required']">Password is required.</span>
+            <span *ngIf="f['password'].errors['minlength']">Must be at least 8 characters.</span>
+            <span *ngIf="f['password'].errors['pattern']">Include at least one uppercase letter, lowercase letter, and number.</span>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="confirm-password" class="form-label">Confirm Password</label>
+          <div class="input-wrapper" [class.input-error]="submitted && (f['confirmPassword'].errors || signupForm.errors?.['passwordMismatch'])">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <input
+              id="confirm-password"
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              class="form-input"
+              placeholder="Re-enter your password"
+              autocomplete="new-password"
+            />
+            <button
+              type="button"
+              class="btn-eye"
+              (click)="toggleConfirmPasswordVisibility()"
+              [attr.aria-label]="showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'">
+              <svg *ngIf="!showConfirmPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg *ngIf="showConfirmPassword" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+          <div *ngIf="submitted && (f['confirmPassword'].errors || signupForm.errors?.['passwordMismatch'])" class="form-error">
+            <span *ngIf="f['confirmPassword'].errors?.['required']">Please confirm your password.</span>
+            <span *ngIf="f['confirmPassword'].errors?.['passwordMismatch'] || signupForm.errors?.['passwordMismatch']">Passwords do not match.</span>
+          </div>
+        </div>
+
+        <!-- Terms Agreement Checkbox -->
+        <div class="form-check">
+          <label class="custom-checkbox">
+            <input type="checkbox" formControlName="agreeTerms" />
+            <span class="checkbox-box"></span>
+            <span class="checkbox-label">
+              I agree to Hasura's <a routerLink="/about" class="terms-link">Terms of Service</a> & <a routerLink="/about" class="terms-link">Privacy Policy</a>
+            </span>
+          </label>
+          <div *ngIf="submitted && f['agreeTerms'].errors" class="form-error mt-1">
+            <span>You must agree to the terms to create an account.</span>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary btn-submit" [disabled]="isLoading">
+          <span *ngIf="!isLoading">Create Hasura Account</span>
+          <span *ngIf="isLoading" class="btn-spinner-wrap">
+            <span class="spinner"></span>
+            Creating Account...
+          </span>
+          <svg *ngIf="!isLoading" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Card Footer: Already have an account? Log in -->
+      <div class="auth-card__footer">
+        <p class="switch-auth">
+          Already have an account?
+          <a routerLink="/login" class="auth-link">Log In Here</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>

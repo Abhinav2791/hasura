@@ -4,7 +4,13 @@
     "icon": "brain",
     "title": "AI & Generative AI",
     "description": "Build intelligent AI-powered applications and automation systems. From LLM integrations to custom AI workflows that transform your business.",
-    "tags": ["OpenAI", "LangChain", "RAG", "Vector DB", "Python"],
+    "tags": [
+      "OpenAI",
+      "LangChain",
+      "RAG",
+      "Vector DB",
+      "Python"
+    ],
     "link": "/services"
   },
   {
@@ -12,7 +18,13 @@
     "icon": "code-2",
     "title": "Software Development",
     "description": "Scalable web applications, enterprise systems and digital platforms built with modern architecture and clean code principles.",
-    "tags": ["Java", "Spring Boot", "Node.js", "React", "Angular"],
+    "tags": [
+      "Java",
+      "Spring Boot",
+      "Node.js",
+      "React",
+      "Angular"
+    ],
     "link": "/services"
   },
   {
@@ -20,7 +32,13 @@
     "icon": "monitor-smartphone",
     "title": "Web & App Development",
     "description": "Modern responsive websites and mobile applications engineered for performance, usability and real-world scale.",
-    "tags": ["Angular", "React", "Next.js", "TypeScript", "PWA"],
+    "tags": [
+      "Angular",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "PWA"
+    ],
     "link": "/services"
   },
   {
@@ -28,7 +46,13 @@
     "icon": "cloud",
     "title": "Cloud & DevOps",
     "description": "AWS infrastructure, CI/CD pipelines, Docker, Kubernetes and end-to-end automation for resilient, scalable deployments.",
-    "tags": ["AWS", "Docker", "Kubernetes", "Terraform", "GitHub Actions"],
+    "tags": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Terraform",
+      "GitHub Actions"
+    ],
     "link": "/services"
   },
   {
@@ -36,7 +60,12 @@
     "icon": "pen-tool",
     "title": "UI/UX Design",
     "description": "Human-centered digital experiences and product design that converts. From research to pixel-perfect, production-ready interfaces.",
-    "tags": ["Figma", "User Research", "Prototyping", "Design Systems"],
+    "tags": [
+      "Figma",
+      "User Research",
+      "Prototyping",
+      "Design Systems"
+    ],
     "link": "/services"
   },
   {
@@ -44,7 +73,12 @@
     "icon": "lightbulb",
     "title": "Technology Consulting",
     "description": "Architecture reviews, technology modernization roadmaps and strategic guidance to align technology with business goals.",
-    "tags": ["Architecture", "Strategy", "Modernization", "Advisory"],
+    "tags": [
+      "Architecture",
+      "Strategy",
+      "Modernization",
+      "Advisory"
+    ],
     "link": "/services"
   }
 ]

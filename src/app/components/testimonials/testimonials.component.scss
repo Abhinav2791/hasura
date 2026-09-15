@@ -211,3 +211,44 @@
   font-weight: 600;
   color: var(--text-muted);
 }
+
+.testimonial-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+
+  &__dots {
+    display: flex;
+    gap: 6px;
+  }
+}
+
+.progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gray-200);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  padding: 0;
+
+  &.active {
+    width: 24px;
+    border-radius: 4px;
+    background: var(--gradient-accent);
+  }
+
+  &:hover:not(.active) {
+    background: var(--blue-300);
+    transform: scale(1.2);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--blue-500);
+    outline-offset: 2px;
+  }
+}
+

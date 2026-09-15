@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ToastService } from '../../core/services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tech-ecosystem',
@@ -72,6 +74,8 @@ export class TechEcosystemComponent {
   activeCategory = 'all';
   hoveredTech: string | null = null;
 
+  constructor(private toastService: ToastService, private router: Router) {}
+
   setCategory(id: string): void {
     this.activeCategory = id;
   }
@@ -80,4 +84,12 @@ export class TechEcosystemComponent {
     if (this.activeCategory === 'all') return this.categories;
     return this.categories.filter(c => c.id === this.activeCategory);
   }
+
+  onTechClick(tech: { name: string; desc: string }): void {
+    this.toastService.info(
+      `${tech.name} Stack`,
+      `${tech.desc}. Taught in our professional tracks & built in production.`
+    );
+  }
 }
+

@@ -4,6 +4,7 @@
     <div class="hero__orb hero__orb--1"></div>
     <div class="hero__orb hero__orb--2"></div>
     <div class="hero__orb hero__orb--3"></div>
+    <div class="hero__orb hero__orb--4"></div>
     <div class="hero__grid"></div>
   </div>
 
@@ -32,11 +33,11 @@
           <span>DREAM • BUILD • GROW</span>
         </div>
 
-        <!-- Headline -->
+        <!-- Headline with Typewriter -->
         <h1 class="hero__headline animate-on-scroll animate-delay-1">
-          Dream It.<br>
-          <span class="text-gradient">Build It.</span><br>
-          Grow With<br>Technology.
+          <span class="hero__typewriter">{{ displayText }}<span class="hero__cursor" aria-hidden="true">|</span></span><br>
+          Grow With<br>
+          <span class="text-gradient">Technology.</span>
         </h1>
 
         <!-- Subtext -->
@@ -47,7 +48,7 @@
         <!-- CTAs -->
         <div class="hero__ctas animate-on-scroll animate-delay-3">
           <a routerLink="/services" class="btn btn-primary btn-lg">
-            Explore Our Services
+            Explore Services
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
           <a routerLink="/courses" class="btn btn-secondary btn-lg">
@@ -55,8 +56,26 @@
           </a>
         </div>
 
+        <!-- Stats Row -->
+        <div class="hero__stats animate-on-scroll animate-delay-4">
+          <div class="hero__stat">
+            <span class="hero__stat-value">500+</span>
+            <span class="hero__stat-label">Learners</span>
+          </div>
+          <div class="hero__stat-sep"></div>
+          <div class="hero__stat">
+            <span class="hero__stat-value">50+</span>
+            <span class="hero__stat-label">Projects</span>
+          </div>
+          <div class="hero__stat-sep"></div>
+          <div class="hero__stat">
+            <span class="hero__stat-value">95%</span>
+            <span class="hero__stat-label">Success Rate</span>
+          </div>
+        </div>
+
         <!-- Tech Pills -->
-        <div class="hero__pills animate-on-scroll animate-delay-4">
+        <div class="hero__pills animate-on-scroll animate-delay-5">
           <span class="hero__pill">AI</span>
           <span class="hero__pill-sep">•</span>
           <span class="hero__pill">CLOUD</span>
@@ -97,42 +116,60 @@
             <div class="node-icon">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a4 4 0 014 4v1a4 4 0 01-4 4 4 4 0 01-4-4V6a4 4 0 014-4z"/><path d="M6 9H2a1 1 0 00-1 1v10a1 1 0 001 1h20a1 1 0 001-1V10a1 1 0 00-1-1h-4"/></svg>
             </div>
-            <span>AI & GenAI</span>
+            <div class="node-content">
+              <span class="node-title">AI & GenAI</span>
+              <span class="node-sub">LLMs, RAG, LangChain</span>
+            </div>
           </div>
 
           <div class="hero__node hero__node--cloud">
             <div class="node-icon">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg>
             </div>
-            <span>Cloud & AWS</span>
+            <div class="node-content">
+              <span class="node-title">Cloud & AWS</span>
+              <span class="node-sub">Serverless, EC2, S3</span>
+            </div>
           </div>
 
           <div class="hero__node hero__node--code">
             <div class="node-icon">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
             </div>
-            <span>Software Dev</span>
+            <div class="node-content">
+              <span class="node-title">Software Dev</span>
+              <span class="node-sub">Java, Angular, React</span>
+            </div>
           </div>
 
           <div class="hero__node hero__node--devops">
             <div class="node-icon">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M5.34 18.66l-1.41 1.41M2 12H4m16 0h2M5.34 5.34L6.75 6.75m10.5 10.5l1.41 1.41M12 2v2m0 16v2"/></svg>
             </div>
-            <span>DevOps</span>
+            <div class="node-content">
+              <span class="node-title">DevOps</span>
+              <span class="node-sub">Docker, K8s, CI/CD</span>
+            </div>
           </div>
 
           <div class="hero__node hero__node--career">
             <div class="node-icon">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
             </div>
-            <span>Career Growth</span>
+            <div class="node-content">
+              <span class="node-title">Career Growth</span>
+              <span class="node-sub">Placements, Mentorship</span>
+            </div>
           </div>
 
           <div class="hero__node hero__node--design">
             <div class="node-icon">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
             </div>
-            <span>UI/UX Design</span>
+            <div class="node-content">
+              <span class="node-title">UI/UX Design</span>
+              <span class="node-sub">Figma, Design Systems</span>
+            </div>
           </div>
 
           <!-- Connection lines (SVG) -->
@@ -143,20 +180,20 @@
                 <stop offset="100%" stop-color="#7C3AED" stop-opacity="0.1"/>
               </linearGradient>
             </defs>
-            <line x1="200" y1="200" x2="290" y2="80" stroke="url(#line-grad)" stroke-width="1"/>
-            <line x1="200" y1="200" x2="340" y2="180" stroke="url(#line-grad)" stroke-width="1"/>
-            <line x1="200" y1="200" x2="310" y2="300" stroke="url(#line-grad)" stroke-width="1"/>
-            <line x1="200" y1="200" x2="100" y2="290" stroke="url(#line-grad)" stroke-width="1"/>
-            <line x1="200" y1="200" x2="80" y2="130" stroke="url(#line-grad)" stroke-width="1"/>
-            <line x1="200" y1="200" x2="200" y2="60" stroke="url(#line-grad)" stroke-width="1"/>
+            <line x1="200" y1="200" x2="290" y2="80" stroke="url(#line-grad)" stroke-width="1" stroke-dasharray="4 4"/>
+            <line x1="200" y1="200" x2="340" y2="180" stroke="url(#line-grad)" stroke-width="1" stroke-dasharray="4 4"/>
+            <line x1="200" y1="200" x2="310" y2="300" stroke="url(#line-grad)" stroke-width="1" stroke-dasharray="4 4"/>
+            <line x1="200" y1="200" x2="100" y2="290" stroke="url(#line-grad)" stroke-width="1" stroke-dasharray="4 4"/>
+            <line x1="200" y1="200" x2="80" y2="130" stroke="url(#line-grad)" stroke-width="1" stroke-dasharray="4 4"/>
+            <line x1="200" y1="200" x2="200" y2="60" stroke="url(#line-grad)" stroke-width="1" stroke-dasharray="4 4"/>
           </svg>
-
 
           <!-- Floating particles -->
           <div class="hero__particle hero__particle--1"></div>
           <div class="hero__particle hero__particle--2"></div>
           <div class="hero__particle hero__particle--3"></div>
           <div class="hero__particle hero__particle--4"></div>
+          <div class="hero__particle hero__particle--5"></div>
         </div>
       </div>
     </div>
@@ -164,6 +201,7 @@
 
   <!-- Scroll indicator -->
   <div class="hero__scroll" aria-hidden="true">
+    <span class="hero__scroll-text">Scroll</span>
     <div class="hero__scroll-line"></div>
   </div>
 </section>

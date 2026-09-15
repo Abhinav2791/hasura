@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastService } from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-footer',
@@ -8,11 +9,15 @@ import { Component } from '@angular/core';
 export class FooterComponent {
   currentYear = new Date().getFullYear();
 
+  constructor(private toastService: ToastService) {}
+
   companyLinks = [
     { label: 'About Us', route: '/about' },
     { label: 'Projects', route: '/projects' },
     { label: 'Careers', route: '/careers' },
     { label: 'Contact', route: '/contact' },
+    { label: 'Log In', route: '/login' },
+    { label: 'Create Account', route: '/signup' },
   ];
 
   serviceLinks = [
@@ -31,9 +36,18 @@ export class FooterComponent {
   ];
 
   socialLinks = [
-    { label: 'LinkedIn', href: '#', icon: 'linkedin' },
-    { label: 'GitHub', href: '#', icon: 'github' },
-    { label: 'Twitter', href: '#', icon: 'twitter' },
-    { label: 'YouTube', href: '#', icon: 'youtube' },
+    { label: 'LinkedIn', href: 'https://linkedin.com', icon: 'linkedin' },
+    { label: 'GitHub', href: 'https://github.com', icon: 'github' },
+    { label: 'Twitter', href: 'https://twitter.com', icon: 'twitter' },
+    { label: 'YouTube', href: 'https://youtube.com', icon: 'youtube' },
   ];
+
+  showLegalNotice(docName: string, event: Event): void {
+    event.preventDefault();
+    this.toastService.info(
+      `${docName}`,
+      `Hasura Technologies operates in full compliance with enterprise privacy standards and data protection guidelines.`
+    );
+  }
 }
+

@@ -106,9 +106,9 @@
           &copy; {{ currentYear }} Hasura Technologies. All Rights Reserved.
         </p>
         <div class="footer__legal">
-          <a href="#" class="footer__legal-link">Privacy Policy</a>
+          <a href="#" (click)="showLegalNotice('Privacy Policy', $event)" class="footer__legal-link">Privacy Policy</a>
           <span class="footer__legal-sep"></span>
-          <a href="#" class="footer__legal-link">Terms of Service</a>
+          <a href="#" (click)="showLegalNotice('Terms of Service', $event)" class="footer__legal-link">Terms of Service</a>
         </div>
       </div>
     </div>

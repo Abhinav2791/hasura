@@ -12,21 +12,41 @@
     </div>
 
     <div class="services-grid">
-      <article class="service-card animate-on-scroll" *ngFor="let service of services; let i = index" [class]="'animate-delay-' + ((i % 3) + 1)">
+      <article
+        class="service-card animate-on-scroll"
+        *ngFor="let service of services; let i = index"
+        [class]="'animate-delay-' + ((i % 3) + 1)"
+        [style.--accent]="getAccentColor(i)"
+        [style.--accent-soft]="getAccentSoft(i)">
+
+        <!-- Glow overlay -->
+        <div class="service-card__glow"></div>
+
         <div class="service-card__header">
           <div class="service-card__icon" [innerHTML]="getIcon(service.icon)" aria-hidden="true"></div>
-          <div class="service-card__number">0{{ i + 1 }}</div>
+          <div class="service-card__number">{{ ('0' + (i + 1)) }}</div>
         </div>
+
         <h3 class="service-card__title">{{ service.title }}</h3>
         <p class="service-card__desc">{{ service.description }}</p>
+
         <div class="service-card__tags">
           <span class="tag" *ngFor="let tag of service.tags">{{ tag }}</span>
         </div>
+
         <a [routerLink]="service.link" class="service-card__link" [attr.aria-label]="'Explore ' + service.title">
           Explore Service
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </article>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="services-cta animate-on-scroll text-center" style="margin-top: 56px;">
+      <a routerLink="/services" class="btn btn-outline btn-lg">
+        View All Services
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
     </div>
   </div>
 </section>

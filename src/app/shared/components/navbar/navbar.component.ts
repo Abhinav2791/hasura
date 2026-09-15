@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService, User } from '../../../core/services/auth.service';
+import { Observable } from 'rxjs';
 
 interface NavLink {
   label: string;
@@ -26,13 +28,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   isScrolled = false;
   isMobileMenuOpen = false;
+  isGetStartedOpen = false;
   isBrowser: boolean;
+  currentUser$: Observable<User | null>;
 
   constructor(
     @Inject(PLATFORM_ID) platformId: Object,
-    private router: Router
+    private router: Router,
+    public authService: AuthService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
+    this.currentUser$ = this.authService.currentUser$;
   }
 
   ngOnInit(): void {}
@@ -44,6 +50,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
+  @HostListener('document:click')
+  onDocumentClick(): void {
+    this.closeGetStarted();
+  }
+
+  toggleGetStarted(event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.isGetStartedOpen = !this.isGetStartedOpen;
+  }
+
+  closeGetStarted(): void {
+    this.isGetStartedOpen = false;
+  }
+
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
     if (this.isBrowser) {
@@ -53,6 +75,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   closeMobileMenu(): void {
     this.isMobileMenuOpen = false;
+    this.isGetStartedOpen = false;
     if (this.isBrowser) {
       document.body.style.overflow = '';
     }
@@ -67,6 +90,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   navigateTo(route: string): void {
     this.closeMobileMenu();
     this.router.navigate([route]);
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.closeMobileMenu();
   }
 
   ngOnDestroy(): void {

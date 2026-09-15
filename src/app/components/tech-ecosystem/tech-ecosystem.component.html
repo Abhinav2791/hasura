@@ -40,6 +40,8 @@
             *ngFor="let tech of cat.techs"
             (mouseenter)="hoveredTech = tech.name"
             (mouseleave)="hoveredTech = null"
+            (click)="onTechClick(tech)"
+            (keydown.enter)="onTechClick(tech)"
             [class.hovered]="hoveredTech === tech.name"
             [attr.aria-label]="tech.name + ': ' + tech.desc"
             role="button"

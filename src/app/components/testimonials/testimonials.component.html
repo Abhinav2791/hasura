@@ -52,7 +52,18 @@
           <button class="testimonial-nav-btn" (click)="prev()" aria-label="Previous testimonial">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
-          <span class="testimonial-counter" aria-live="polite">{{ activeIndex + 1 }} / {{ testimonials.length }}</span>
+          <div class="testimonial-progress">
+            <div class="testimonial-progress__dots">
+              <button
+                *ngFor="let t of testimonials; let i = index"
+                class="progress-dot"
+                [class.active]="activeIndex === i"
+                (click)="setActive(i)"
+                [attr.aria-label]="'Go to testimonial ' + (i + 1)">
+              </button>
+            </div>
+            <span class="testimonial-counter" aria-live="polite">{{ activeIndex + 1 }} / {{ testimonials.length }}</span>
+          </div>
           <button class="testimonial-nav-btn" (click)="next()" aria-label="Next testimonial">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
@@ -61,3 +72,4 @@
     </div>
   </div>
 </section>
+
