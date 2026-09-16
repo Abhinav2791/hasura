@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { ToastService } from '../../core/services/toast.service';
 
@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private toastService: ToastService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -57,7 +58,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(email, password, rememberMe).subscribe({
       next: (res) => {
         this.isLoading = false;
-        this.router.navigate(['/']);
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || (res.user.role === 'admin' ? '/admin/dashboard' : '/student/dashboard');
+        this.router.navigateByUrl(returnUrl);
       },
       error: (err) => {
         this.isLoading = false;

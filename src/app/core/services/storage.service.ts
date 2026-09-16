@@ -30,8 +30,7 @@ export class StorageService {
       fileName: file.name,
       bucket
     }).pipe(
-      delay(700),
-      // Dispatches confirmation
+      delay(700)
     );
   }
 }

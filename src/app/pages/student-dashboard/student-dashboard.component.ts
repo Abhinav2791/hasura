@@ -86,8 +86,38 @@ export class StudentDashboardComponent implements OnInit {
     );
   }
 
+  getAverageProgress(enrollments: Enrollment[]): number {
+    if (!enrollments || enrollments.length === 0) return 0;
+    const sum = enrollments.reduce((acc, curr) => acc + curr.progress, 0);
+    return Math.round(sum / enrollments.length);
+  }
+
+  getCompletedCount(enrollments: Enrollment[]): number {
+    if (!enrollments) return 0;
+    return enrollments.filter(e => e.status === 'completed' || e.progress >= 100).length;
+  }
+
+  downloadCertificate(certId: string): void {
+    this.toastService.success(
+      'Generating PDF Credential',
+      `Certificate ${certId} is being prepared for high-resolution download.`
+    );
+  }
+
+  shareCertificate(certId: string): void {
+    const url = `https://hasura.tech/verify/${certId}`;
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(() => {
+        this.toastService.info('Link Copied', 'Verification URL copied to clipboard for LinkedIn or resume sharing.');
+      });
+    } else {
+      this.toastService.info('Verification URL', url);
+    }
+  }
+
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/']);
   }
 }
+

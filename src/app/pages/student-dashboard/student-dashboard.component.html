@@ -1,70 +1,178 @@
 <main class="student-dashboard">
+  <!-- Radiant Ambient Background Glows -->
+  <div class="dashboard-ambient" aria-hidden="true">
+    <div class="ambient-orb ambient-orb--1"></div>
+    <div class="ambient-orb ambient-orb--2"></div>
+    <div class="ambient-orb ambient-orb--3"></div>
+  </div>
+
   <!-- Header Bar -->
   <header class="dashboard-header">
-    <div class="container">
+    <div class="dashboard-container">
       <div class="dashboard-header__content">
         <div class="welcome-block" *ngIf="currentUser$ | async as user">
           <div class="user-avatar-wrap">
             <img [src]="user.avatar" [alt]="user.name" class="user-avatar" />
-            <span class="online-indicator"></span>
+            <span class="online-indicator" title="Active Session"></span>
           </div>
-          <div>
-            <div class="badge-role">HASURA STUDENT PORTAL</div>
+          <div class="welcome-text">
+            <div class="badge-role">
+              <span class="role-dot"></span>
+              HASURA STUDENT PORTAL
+            </div>
             <h1 class="welcome-title">Welcome back, {{ user.name }}</h1>
-            <p class="welcome-sub">DREAM • BUILD • GROW — Track your engineering milestones and certifications</p>
+            <p class="welcome-sub">DREAM • BUILD • GROW — Track your engineering milestones, capstone labs, and verified credentials</p>
           </div>
         </div>
 
         <div class="header-actions">
-          <a routerLink="/courses" class="btn btn-secondary btn-sm">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <a routerLink="/courses" class="btn btn-secondary btn-sm header-action-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
               <path d="M2 17L12 22L22 17"></path>
               <path d="M2 12L12 17L22 12"></path>
             </svg>
-            Explore More Courses
+            Explore Catalog
           </a>
-          <button (click)="logout()" class="btn btn-outline-danger btn-sm">
+          <button (click)="logout()" class="btn btn-outline-danger btn-sm header-action-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
             Sign Out
           </button>
         </div>
       </div>
 
+      <!-- Quick KPI Metric Cards -->
+      <div class="kpi-grid" *ngIf="enrollments$ | async as enrollments">
+        <div class="kpi-card">
+          <div class="kpi-card__icon kpi-card__icon--blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+          </div>
+          <div class="kpi-card__body">
+            <div class="kpi-card__label">Active Programs</div>
+            <div class="kpi-card__value">{{ enrollments.length }} Courses</div>
+            <div class="kpi-card__hint">Live curriculum access</div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-card__icon kpi-card__icon--cyan">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+            </svg>
+          </div>
+          <div class="kpi-card__body">
+            <div class="kpi-card__label">Average Mastery</div>
+            <div class="kpi-card__value">{{ getAverageProgress(enrollments) }}% Completed</div>
+            <div class="kpi-progress-bar">
+              <div class="kpi-progress-fill" [style.width.%]="getAverageProgress(enrollments)"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-card__icon kpi-card__icon--emerald">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="7"></circle>
+              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+            </svg>
+          </div>
+          <div class="kpi-card__body">
+            <div class="kpi-card__label">Credentials Earned</div>
+            <div class="kpi-card__value">{{ getCompletedCount(enrollments) }} Verified</div>
+            <div class="kpi-card__hint">Cryptographically stamped</div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-card__icon kpi-card__icon--violet">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+          </div>
+          <div class="kpi-card__body">
+            <div class="kpi-card__label">Career Acceleration</div>
+            <div class="kpi-card__value">Active Mentorship</div>
+            <div class="kpi-card__hint">Interviews & ATS review queued</div>
+          </div>
+        </div>
+      </div>
+
       <!-- Dashboard Navigation Tabs -->
-      <nav class="dashboard-tabs" role="tablist">
+      <nav class="dashboard-tabs" role="tablist" aria-label="Student portal navigation">
         <button
           class="tab-link"
           [class.active]="activeTab === 'courses'"
           (click)="setTab('courses')"
-          role="tab">
+          role="tab"
+          [attr.aria-selected]="activeTab === 'courses'">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
           <span>My Courses</span>
+          <span class="tab-badge" *ngIf="enrollments$ | async as enrollments">{{ enrollments.length }}</span>
         </button>
+
         <button
           class="tab-link"
           [class.active]="activeTab === 'projects'"
           (click)="setTab('projects')"
-          role="tab">
+          role="tab"
+          [attr.aria-selected]="activeTab === 'projects'">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
           <span>Projects Portfolio</span>
+          <span class="tab-badge">2</span>
         </button>
+
         <button
           class="tab-link"
           [class.active]="activeTab === 'certificates'"
           (click)="setTab('certificates')"
-          role="tab">
-          <span>Certificates</span>
+          role="tab"
+          [attr.aria-selected]="activeTab === 'certificates'">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="8" r="7"></circle>
+            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+          </svg>
+          <span>Certifications</span>
+          <span class="tab-badge tab-badge--emerald">1</span>
         </button>
+
         <button
           class="tab-link"
           [class.active]="activeTab === 'career'"
           (click)="setTab('career')"
-          role="tab">
-          <span>Career Support</span>
+          role="tab"
+          [attr.aria-selected]="activeTab === 'career'">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+          <span>Career Mentorship</span>
         </button>
+
         <button
           class="tab-link"
           [class.active]="activeTab === 'profile'"
           (click)="setTab('profile')"
-          role="tab">
+          role="tab"
+          [attr.aria-selected]="activeTab === 'profile'">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
           <span>Profile Settings</span>
         </button>
       </nav>
@@ -73,129 +181,181 @@
 
   <!-- Content Section -->
   <section class="dashboard-body">
-    <div class="container">
+    <div class="dashboard-container">
+      <!-- ================================================================ -->
       <!-- 1. MY COURSES TAB -->
+      <!-- ================================================================ -->
       <div *ngIf="activeTab === 'courses'" class="tab-content">
         <div class="content-header">
           <div>
+            <span class="content-eyebrow">ENROLLED SYLLABUS</span>
             <h2 class="section-title">Active Learning Programs</h2>
-            <p class="section-desc">Track real-time progress, complete hands-on labs, and unlock milestone certificates.</p>
+            <p class="section-desc">Track real-time progress, complete hands-on labs, and unlock industry-recognized certificates.</p>
           </div>
+          <a routerLink="/courses" class="btn btn-outline-primary btn-sm">Browse Catalog +</a>
         </div>
 
         <div class="enrollments-list" *ngIf="enrollments$ | async as enrollments">
           <div *ngIf="enrollments.length === 0" class="empty-state">
-            <p>You have not enrolled in any programs yet.</p>
+            <div class="empty-state__icon">📚</div>
+            <h3 class="empty-state__title">No Courses Enrolled Yet</h3>
+            <p class="empty-state__desc">Enroll in an industry-grade technology program to start building production applications.</p>
             <a routerLink="/courses" class="btn btn-primary">Browse Available Courses</a>
           </div>
 
           <div *ngFor="let item of enrollments" class="enrollment-card">
+            <div class="enrollment-card__accent" [class.enrollment-card__accent--completed]="item.status === 'completed' || item.progress >= 100"></div>
+
             <div class="card-main">
               <div class="card-meta">
                 <span class="card-category">{{ item.category }}</span>
-                <span class="card-status" [class.completed]="item.status === 'completed'">
-                  {{ item.status === 'completed' ? 'Completed' : 'In Progress' }}
+                <span class="card-status" [class.completed]="item.status === 'completed' || item.progress >= 100">
+                  <span class="status-dot"></span>
+                  {{ (item.status === 'completed' || item.progress >= 100) ? 'Completed • 100%' : 'In Progress' }}
                 </span>
+                <span class="card-enrolled-date">Enrolled {{ item.enrolledAt | slice:0:10 }}</span>
               </div>
-              <h3 class="card-title">{{ item.courseTitle }}</h3>
-              <p class="current-lesson" *ngIf="item.currentLesson">
-                <span class="dot"></span>
-                <span>Current: {{ item.currentLesson }}</span>
-              </p>
 
-              <!-- Progress bar -->
+              <h3 class="card-title">{{ item.courseTitle }}</h3>
+
+              <div class="current-lesson" *ngIf="item.currentLesson">
+                <span class="dot"></span>
+                <span class="lesson-label">Current Module:</span>
+                <span class="lesson-text">{{ item.currentLesson }}</span>
+              </div>
+
+              <!-- Progress bar with bright, crystal-clear labels -->
               <div class="progress-box">
                 <div class="progress-header">
-                  <span>Curriculum Progress</span>
-                  <span class="pct">{{ item.progress }}%</span>
+                  <span class="progress-label">Syllabus Completion</span>
+                  <span class="progress-pct">{{ item.progress }}%</span>
                 </div>
                 <div class="progress-bar-bg">
                   <div class="progress-bar-fill" [style.width.%]="item.progress"></div>
                 </div>
               </div>
 
-              <!-- Quick action to test completion -->
+              <!-- Action buttons -->
               <div class="card-actions">
                 <button
                   type="button"
-                  class="btn btn-primary btn-sm"
+                  class="btn btn-primary btn-sm action-btn"
                   (click)="incrementProgress(item, 15)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
                   Continue Learning (+15%)
                 </button>
-                <a [routerLink]="['/courses', item.courseId]" class="btn btn-secondary btn-sm">
-                  View Syllabus
+                <a [routerLink]="['/courses', item.courseId]" class="btn btn-secondary btn-sm action-btn">
+                  View Full Syllabus
                 </a>
               </div>
             </div>
 
+            <!-- Sidebar Certificate Box -->
             <div class="card-sidebar" *ngIf="item.certificateId">
               <div class="cert-pill">
                 <span class="icon">🏆</span>
                 <span>CERTIFIED</span>
               </div>
+              <div class="cert-title">Verified Credential</div>
               <p class="cert-id">{{ item.certificateId }}</p>
-              <button class="btn btn-secondary btn-sm w-full" (click)="setTab('certificates')">
-                View Certificate
+              <button class="btn btn-primary btn-sm w-full cert-view-btn" (click)="setTab('certificates')">
+                View Certificate →
               </button>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- ================================================================ -->
       <!-- 2. PROJECTS TAB -->
+      <!-- ================================================================ -->
       <div *ngIf="activeTab === 'projects'" class="tab-content">
         <div class="content-header">
           <div>
+            <span class="content-eyebrow">PORTFOLIO DEFENSE</span>
             <h2 class="section-title">Capstone Submissions & Artifacts</h2>
-            <p class="section-desc">Production-grade applications evaluated by Hasura staff engineers.</p>
+            <p class="section-desc">Production-grade distributed applications evaluated by Hasura senior staff engineers.</p>
           </div>
         </div>
 
         <div class="projects-grid">
           <div class="project-submission-card">
             <div class="proj-header">
-              <span class="proj-badge">EVALUATED • 98/100</span>
+              <span class="proj-badge proj-badge--evaluated">
+                <span class="badge-dot"></span>
+                EVALUATED • 98/100
+              </span>
               <span class="proj-date">Sept 2026</span>
             </div>
             <h3 class="proj-title">Autonomous RAG Multi-Agent Orchestrator</h3>
-            <p class="proj-desc">High-concurrency document parsing engine with vector embeddings, semantic reranking, and zero-hallucination validation guards.</p>
+            <p class="proj-desc">High-concurrency document ingestion and retrieval engine with vector embeddings, hybrid semantic reranking, and zero-hallucination guardrails.</p>
             <div class="proj-tags">
               <span>FastAPI</span>
               <span>LangChain</span>
               <span>Pinecone</span>
               <span>Docker</span>
+              <span>Python 3.11</span>
             </div>
             <div class="proj-footer">
-              <span class="reviewer">Reviewed by: Senior AI Lead</span>
-              <a href="https://github.com" target="_blank" rel="noopener" class="link-gh">View Repo →</a>
+              <div class="reviewer-info">
+                <span class="reviewer-badge">Reviewed by:</span>
+                <span class="reviewer-name">Principal AI Architect</span>
+              </div>
+              <a href="https://github.com" target="_blank" rel="noopener" class="link-gh">
+                <span>View GitHub Repo</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="21" y1="3" x2="10" y2="14"></line>
+                </svg>
+              </a>
             </div>
           </div>
 
           <div class="project-submission-card">
             <div class="proj-header">
-              <span class="proj-badge in-progress">IN LAB REVIEW</span>
-              <span class="proj-date">Current</span>
+              <span class="proj-badge proj-badge--in-review">
+                <span class="badge-dot badge-dot--pulse"></span>
+                IN LAB REVIEW
+              </span>
+              <span class="proj-date">Active Sprint</span>
             </div>
             <h3 class="proj-title">Multi-Region Cloud Infrastructure Automation</h3>
-            <p class="proj-desc">Automated Terraform state orchestration deploying highly available Kubernetes clusters on AWS with automated canary releases.</p>
+            <p class="proj-desc">Automated Terraform state orchestration deploying highly available Kubernetes clusters on AWS with canary releases and distributed Prometheus monitoring.</p>
             <div class="proj-tags">
-              <span>AWS</span>
+              <span>AWS EC2/EKS</span>
               <span>Terraform</span>
               <span>Kubernetes</span>
               <span>GitHub Actions</span>
+              <span>Prometheus</span>
             </div>
             <div class="proj-footer">
-              <span class="reviewer">Review status: Automated tests passing</span>
-              <a href="https://github.com" target="_blank" rel="noopener" class="link-gh">View Repo →</a>
+              <div class="reviewer-info">
+                <span class="reviewer-badge">Current Status:</span>
+                <span class="reviewer-status">Automated CI/CD Tests Passing</span>
+              </div>
+              <a href="https://github.com" target="_blank" rel="noopener" class="link-gh">
+                <span>View GitHub Repo</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="21" y1="3" x2="10" y2="14"></line>
+                </svg>
+              </a>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- ================================================================ -->
       <!-- 3. CERTIFICATES TAB -->
+      <!-- ================================================================ -->
       <div *ngIf="activeTab === 'certificates'" class="tab-content">
         <div class="content-header">
           <div>
+            <span class="content-eyebrow">HONORS & ACCREDITATION</span>
             <h2 class="section-title">Verified Competency Credentials</h2>
             <p class="section-desc">Cryptographically verifiable certificates issued upon 100% capstone project defense.</p>
           </div>
@@ -203,71 +363,154 @@
 
         <div class="certificates-grid">
           <div class="cert-card">
+            <div class="cert-watermark">HASURA</div>
+
             <div class="cert-card__top">
-              <div class="cert-logo">HASURA</div>
-              <div class="cert-badge">VERIFIED CREDENTIAL</div>
+              <div class="cert-brand">
+                <span class="brand-h">HASURA</span>
+                <span class="brand-sub">ENGINEERING ACADEMY</span>
+              </div>
+              <div class="cert-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                VERIFIED CREDENTIAL
+              </div>
             </div>
+
             <div class="cert-card__body">
-              <span class="cert-presented">This certifies that</span>
+              <span class="cert-presented">This official certificate is proudly awarded to</span>
               <h3 class="cert-recipient" *ngIf="currentUser$ | async as user">{{ user.name }}</h3>
-              <p class="cert-course">has successfully defended and mastered the rigorous curriculum in</p>
-              <h4 class="cert-program">AWS Cloud Computing & Infrastructure</h4>
-              <p class="cert-details">Issued: September 2026 • Credential ID: HASURA-CLOUD-2026-9821</p>
+              <p class="cert-course">for successfully completing the production curriculum, capstone code defense, and live engineering evaluation in</p>
+              <h4 class="cert-program">AWS Cloud Computing & Distributed Infrastructure</h4>
+              <div class="cert-details">
+                <span>Issued: September 2026</span>
+                <span class="separator">•</span>
+                <span class="cert-hash">ID: HASURA-CLOUD-2026-9821</span>
+              </div>
             </div>
+
             <div class="cert-card__footer">
-              <span class="tagline">DREAM • BUILD • GROW</span>
-              <span class="verified-stamp">✓ Verified by Hasura Engineering</span>
+              <div class="cert-tagline">
+                <span class="tagline-main">DREAM • BUILD • GROW</span>
+                <span class="tagline-sub">Hasura Technologies Worldwide</span>
+              </div>
+              <div class="verified-stamp">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span>Verified by Engineering Committee</span>
+              </div>
+            </div>
+
+            <div class="cert-actions-bar">
+              <button class="btn btn-primary btn-sm" (click)="downloadCertificate('HASURA-CLOUD-2026-9821')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download PDF
+              </button>
+              <button class="btn btn-secondary btn-sm" (click)="shareCertificate('HASURA-CLOUD-2026-9821')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="18" cy="5" r="3"></circle>
+                  <circle cx="6" cy="12" r="3"></circle>
+                  <circle cx="18" cy="19" r="3"></circle>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                Share / Copy Link
+              </button>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- ================================================================ -->
       <!-- 4. CAREER SUPPORT TAB -->
+      <!-- ================================================================ -->
       <div *ngIf="activeTab === 'career'" class="tab-content">
         <div class="content-header">
           <div>
-            <h2 class="section-title">Career Acceleration Hub</h2>
+            <span class="content-eyebrow">CAREER ACCELERATION</span>
+            <h2 class="section-title">Mentorship & Placement Hub</h2>
             <p class="section-desc">1-on-1 mentorship, resume optimization, and mock technical interview scheduling.</p>
           </div>
         </div>
 
         <div class="career-cards-row">
           <div class="career-action-card">
-            <div class="card-icon">📄</div>
-            <h3>Resume & LinkedIn Review</h3>
-            <p>Our senior technical recruiters optimize your portfolio and resume for top technology companies.</p>
-            <button class="btn btn-primary btn-sm" (click)="requestResumeReview()">Request Resume Review</button>
+            <div class="card-icon-wrap card-icon-wrap--blue">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <h3 class="career-card-title">Resume & LinkedIn Review</h3>
+            <p class="career-card-desc">Our senior technical recruiters optimize your portfolio, GitHub, and resume for top-tier technology companies and high ATS scores.</p>
+            <button class="btn btn-primary btn-sm w-full" (click)="requestResumeReview()">
+              Request Resume Review
+            </button>
           </div>
 
           <div class="career-action-card">
-            <div class="card-icon">🎙</div>
-            <h3>Mock Technical Interview</h3>
-            <p>Practice 60-minute coding rounds and system architecture interviews with real engineering managers.</p>
-            <button class="btn btn-primary btn-sm" (click)="requestMockInterview()">Schedule Mock Session</button>
+            <div class="card-icon-wrap card-icon-wrap--violet">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+              </svg>
+            </div>
+            <h3 class="career-card-title">Mock Technical Interview</h3>
+            <p class="career-card-desc">Practice 60-minute live coding rounds and distributed systems architecture interviews with real engineering leads.</p>
+            <button class="btn btn-primary btn-sm w-full" (click)="requestMockInterview()">
+              Schedule Mock Session
+            </button>
           </div>
         </div>
 
         <div class="history-card">
-          <h3 class="history-title">Your Mentorship History</h3>
+          <div class="history-header-bar">
+            <h3 class="history-title">Your Mentorship Sessions</h3>
+            <span class="history-count">2 Active Logs</span>
+          </div>
           <div class="history-list">
             <div class="history-item" *ngFor="let req of careerRequests">
-              <div class="history-header">
+              <div class="history-item-top">
                 <span class="req-type">{{ req.type }}</span>
-                <span class="req-status" [class.done]="req.status === 'Completed'">{{ req.status }}</span>
+                <span class="req-status" [class.done]="req.status === 'Completed'">
+                  <span class="status-dot"></span>
+                  {{ req.status }}
+                </span>
               </div>
               <p class="req-notes">{{ req.notes }}</p>
-              <span class="req-date">{{ req.date }}</span>
+              <div class="req-date">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>{{ req.date }}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- ================================================================ -->
       <!-- 5. PROFILE SETTINGS TAB -->
+      <!-- ================================================================ -->
       <div *ngIf="activeTab === 'profile'" class="tab-content">
         <div class="content-header">
           <div>
-            <h2 class="section-title">Student Profile & Preferences</h2>
-            <p class="section-desc">Manage your public contact information and technical background.</p>
+            <span class="content-eyebrow">ACCOUNT & PORTFOLIO</span>
+            <h2 class="section-title">Student Profile Settings</h2>
+            <p class="section-desc">Manage your public contact information, career goals, and portfolio repository links.</p>
           </div>
         </div>
 
@@ -275,7 +518,7 @@
           <div class="form-grid">
             <div class="form-group">
               <label for="fullName">Full Name</label>
-              <input id="fullName" type="text" [(ngModel)]="profileForm.fullName" name="fullName" class="form-control" />
+              <input id="fullName" type="text" [(ngModel)]="profileForm.fullName" name="fullName" class="form-control" placeholder="Your Full Name" />
             </div>
 
             <div class="form-group">
@@ -284,28 +527,35 @@
             </div>
 
             <div class="form-group full-width">
-              <label for="careerGoal">Career Goal</label>
-              <input id="careerGoal" type="text" [(ngModel)]="profileForm.careerGoal" name="careerGoal" class="form-control" placeholder="e.g. Senior AI Engineer or Cloud Architect" />
+              <label for="careerGoal">Target Career Goal</label>
+              <input id="careerGoal" type="text" [(ngModel)]="profileForm.careerGoal" name="careerGoal" class="form-control" placeholder="e.g. Senior AI Engineer or Cloud Architect at Tier-1 Tech" />
             </div>
 
             <div class="form-group full-width">
-              <label for="bio">Bio / Summary</label>
-              <textarea id="bio" rows="3" [(ngModel)]="profileForm.bio" name="bio" class="form-control" placeholder="Brief technical summary..."></textarea>
+              <label for="bio">Bio & Professional Summary</label>
+              <textarea id="bio" rows="3" [(ngModel)]="profileForm.bio" name="bio" class="form-control" placeholder="Brief overview of your software engineering journey and technical strengths..."></textarea>
             </div>
 
             <div class="form-group">
               <label for="githubUrl">GitHub Profile URL</label>
-              <input id="githubUrl" type="url" [(ngModel)]="profileForm.githubUrl" name="githubUrl" class="form-control" placeholder="https://github.com/..." />
+              <input id="githubUrl" type="url" [(ngModel)]="profileForm.githubUrl" name="githubUrl" class="form-control" placeholder="https://github.com/yourusername" />
             </div>
 
             <div class="form-group">
               <label for="linkedinUrl">LinkedIn Profile URL</label>
-              <input id="linkedinUrl" type="url" [(ngModel)]="profileForm.linkedinUrl" name="linkedinUrl" class="form-control" placeholder="https://linkedin.com/in/..." />
+              <input id="linkedinUrl" type="url" [(ngModel)]="profileForm.linkedinUrl" name="linkedinUrl" class="form-control" placeholder="https://linkedin.com/in/yourprofile" />
             </div>
           </div>
 
           <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Save Profile Changes</button>
+            <button type="submit" class="btn btn-primary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+              </svg>
+              Save Profile Changes
+            </button>
           </div>
         </form>
       </div>
