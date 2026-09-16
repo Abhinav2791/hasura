@@ -44,18 +44,54 @@
         <span class="search-kbd">⌘K</span>
       </button>
 
-      <!-- Authenticated User Chip -->
+      <!-- Right side Explore Courses link per Section 7 -->
+      <a routerLink="/courses" class="btn-courses-nav" (click)="closeMobileMenu()">
+        Explore Courses
+      </a>
+
+      <!-- Authenticated User Chip / Menu -->
       <ng-container *ngIf="currentUser$ | async as user; else guestActions">
-        <div class="user-chip">
-          <img [src]="user.avatar" [alt]="user.name" class="user-chip__avatar" />
-          <span class="user-chip__name">{{ user.name }}</span>
-          <button class="user-chip__logout" (click)="logout()" title="Sign Out" aria-label="Sign Out">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-              <polyline points="16 17 21 12 16 7"/>
-              <line x1="21" y1="12" x2="9" y2="12"/>
+        <div class="user-chip-wrap" (click)="$event.stopPropagation()">
+          <button class="user-chip" (click)="toggleUserMenu($event)" [attr.aria-expanded]="isUserMenuOpen">
+            <img [src]="user.avatar" [alt]="user.name" class="user-chip__avatar" />
+            <span class="user-chip__name">{{ user.name }}</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
+
+          <!-- User Dropdown Menu -->
+          <div class="user-dropdown-menu" [class.open]="isUserMenuOpen" role="menu">
+            <div class="user-dropdown-header">
+              <span class="user-role-badge">{{ user.role === 'admin' ? 'PLATFORM ADMIN' : 'STUDENT' }}</span>
+              <span class="user-email-text">{{ user.email }}</span>
+            </div>
+
+            <a routerLink="/student/dashboard" class="menu-item" (click)="closeMobileMenu()" role="menuitem">
+              <div class="menu-item__icon">🎓</div>
+              <div class="menu-item__body">
+                <div class="menu-item__title">Student Dashboard</div>
+                <div class="menu-item__desc">Courses, progress & certificates</div>
+              </div>
+            </a>
+
+            <a *ngIf="user.role === 'admin'" routerLink="/admin/dashboard" class="menu-item" (click)="closeMobileMenu()" role="menuitem">
+              <div class="menu-item__icon">⚡</div>
+              <div class="menu-item__body">
+                <div class="menu-item__title">Admin Console</div>
+                <div class="menu-item__desc">Manage courses & client leads</div>
+              </div>
+            </a>
+
+            <div class="menu-divider"></div>
+
+            <button type="button" class="menu-item menu-item--logout" (click)="logout()" role="menuitem">
+              <div class="menu-item__icon">🚪</div>
+              <div class="menu-item__body">
+                <div class="menu-item__title">Sign Out</div>
+              </div>
+            </button>
+          </div>
         </div>
       </ng-container>
 
@@ -63,7 +99,7 @@
       <ng-template #guestActions>
         <a routerLink="/login" class="btn-login-nav" (click)="closeMobileMenu()">Log In</a>
 
-        <!-- Get Started with Options Dropdown -->
+        <!-- Get Started Dropdown -->
         <div class="get-started-dropdown-wrap" (click)="$event.stopPropagation()">
           <button
             type="button"
@@ -90,7 +126,7 @@
           <!-- Dropdown Menu -->
           <div class="get-started-menu" [class.open]="isGetStartedOpen" role="menu">
             <div class="get-started-menu__header">
-              <span class="menu-label">GET STARTED</span>
+              <span class="menu-label">JOIN HASURA</span>
             </div>
 
             <a routerLink="/signup" class="menu-item menu-item--primary" (click)="closeGetStarted(); closeMobileMenu()" role="menuitem">
@@ -127,16 +163,10 @@
 
             <div class="menu-divider"></div>
 
-            <a routerLink="/courses" class="menu-item menu-item--subtle" (click)="closeGetStarted(); closeMobileMenu()" role="menuitem">
-              <div class="menu-item__icon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                  <path d="M2 17L12 22L22 17"></path>
-                  <path d="M2 12L12 17L22 12"></path>
-                </svg>
-              </div>
+            <a routerLink="/contact" class="menu-item menu-item--subtle" (click)="closeGetStarted(); closeMobileMenu()" role="menuitem">
+              <div class="menu-item__icon">💼</div>
               <div class="menu-item__body">
-                <div class="menu-item__title">Explore Courses</div>
+                <div class="menu-item__title">Enterprise Consultation</div>
               </div>
             </a>
           </div>
@@ -188,7 +218,7 @@
     </div>
 
     <ul class="mobile-menu__links" role="list">
-      <li *ngFor="let link of navLinks; let i = index" [style.animation-delay]="(i * 60) + 'ms'">
+      <li *ngFor="let link of navLinks; let i = index" [style.animation-delay]="(i * 50) + 'ms'">
         <a
           [routerLink]="link.route"
           routerLinkActive="active"
@@ -211,33 +241,21 @@
             <span class="mobile-user-name">{{ user.name }}</span>
             <span class="mobile-user-email">{{ user.email }}</span>
           </div>
-          <button type="button" class="btn btn-secondary btn-sm" (click)="logout()">Sign Out</button>
         </div>
+        <a routerLink="/student/dashboard" class="btn btn-primary w-full" (click)="closeMobileMenu()">
+          🎓 Open Student Dashboard
+        </a>
+        <a *ngIf="user.role === 'admin'" routerLink="/admin/dashboard" class="btn btn-secondary w-full" (click)="closeMobileMenu()">
+          ⚡ Admin Console
+        </a>
+        <button type="button" class="btn btn-secondary btn-sm w-full" (click)="logout()">Sign Out</button>
       </ng-container>
 
       <ng-template #mobileGuestActions>
         <div class="mobile-auth-card">
-          <div class="mobile-auth-header">
-            <span>GET STARTED</span>
-          </div>
           <div class="mobile-auth-grid">
-            <a routerLink="/signup" class="btn btn-primary w-full" (click)="closeMobileMenu()">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="8.5" cy="7" r="4"></circle>
-                <line x1="20" y1="8" x2="20" y2="14"></line>
-                <line x1="23" y1="11" x2="17" y2="11"></line>
-              </svg>
-              Sign Up
-            </a>
-            <a routerLink="/login" class="btn btn-secondary w-full" (click)="closeMobileMenu()">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-                <polyline points="10 17 15 12 10 7"></polyline>
-                <line x1="15" y1="12" x2="3" y2="12"></line>
-              </svg>
-              Log In
-            </a>
+            <a routerLink="/signup" class="btn btn-primary w-full" (click)="closeMobileMenu()">Sign Up Free</a>
+            <a routerLink="/login" class="btn btn-secondary w-full" (click)="closeMobileMenu()">Log In</a>
           </div>
         </div>
       </ng-template>

@@ -1,0 +1,280 @@
+<main class="course-detail-page">
+  <!-- Loading State -->
+  <div class="course-loading" *ngIf="loading">
+    <div class="container text-center">
+      <div class="skeleton-pill"></div>
+      <div class="skeleton-title"></div>
+      <div class="skeleton-paragraph"></div>
+    </div>
+  </div>
+
+  <!-- Not Found State -->
+  <div class="course-not-found" *ngIf="!loading && !course">
+    <div class="container text-center">
+      <div class="empty-badge">COURSE NOT FOUND</div>
+      <h2>The requested curriculum is not available.</h2>
+      <p>Explore our active programs in AI, Cloud, DevOps, Full-Stack and Design.</p>
+      <a routerLink="/courses" class="btn btn-primary">Browse All Courses</a>
+    </div>
+  </div>
+
+  <!-- Main Course Content -->
+  <ng-container *ngIf="!loading && course">
+    <!-- Course Hero -->
+    <section class="course-hero">
+      <div class="container">
+        <div class="course-hero__grid">
+          <div class="course-hero__left">
+            <a routerLink="/courses" class="back-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              <span>Back to Courses</span>
+            </a>
+
+            <div class="course-category-badge">{{ course.category }}</div>
+            <h1 class="course-title">{{ course.title }}</h1>
+            <p class="course-subtitle">{{ course.subtitle }}</p>
+            <p class="course-description">{{ course.description }}</p>
+
+            <div class="course-highlights">
+              <div class="highlight-item">
+                <span class="hl-label">Duration</span>
+                <span class="hl-val">{{ course.duration }}</span>
+              </div>
+              <div class="highlight-item">
+                <span class="hl-label">Skill Level</span>
+                <span class="hl-val">{{ course.level }}</span>
+              </div>
+              <div class="highlight-item">
+                <span class="hl-label">Capstone Projects</span>
+                <span class="hl-val">{{ course.projects }} Real-World</span>
+              </div>
+              <div class="highlight-item">
+                <span class="hl-label">Career Target</span>
+                <span class="hl-val">{{ course.outcome }}</span>
+              </div>
+            </div>
+
+            <!-- CTA button on mobile / left -->
+            <div class="hero-actions">
+              <button
+                type="button"
+                class="btn btn-primary btn-lg"
+                [class.btn-success]="isEnrolled"
+                (click)="handleEnroll()">
+                <ng-container *ngIf="!isEnrolled">
+                  Enroll in Program — ${{ course.price }}
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </ng-container>
+                <ng-container *ngIf="isEnrolled">
+                  ✓ Enrolled — Open Dashboard
+                </ng-container>
+              </button>
+              <a routerLink="/contact" class="btn btn-secondary btn-lg">Talk to Admissions</a>
+            </div>
+          </div>
+
+          <!-- Hero Sidebar Card -->
+          <div class="course-hero__card">
+            <div class="enroll-card">
+              <div class="enroll-card__badge">DREAM • BUILD • GROW</div>
+              <div class="enroll-card__price">
+                <span class="currency">$</span>
+                <span class="amount">{{ course.price }}</span>
+                <span class="period">/ full program</span>
+              </div>
+              <p class="enroll-card__guarantee">Flexible payment plans & corporate sponsorship available.</p>
+
+              <button
+                type="button"
+                class="btn btn-primary w-full"
+                [class.btn-success]="isEnrolled"
+                (click)="handleEnroll()">
+                {{ isEnrolled ? 'Go to Student Dashboard' : 'Enroll Now' }}
+              </button>
+
+              <div class="enroll-card__features">
+                <div class="feature-row">
+                  <span class="feature-icon">✓</span>
+                  <span>100% Hands-On Production Code</span>
+                </div>
+                <div class="feature-row">
+                  <span class="feature-icon">✓</span>
+                  <span>1-on-1 Senior Staff Mentorship</span>
+                </div>
+                <div class="feature-row">
+                  <span class="feature-icon">✓</span>
+                  <span>Verified Competency Certificate</span>
+                </div>
+                <div class="feature-row">
+                  <span class="feature-icon">✓</span>
+                  <span>Mock Technical Interviews & Resume Polish</span>
+                </div>
+              </div>
+
+              <div class="card-technologies">
+                <span class="tech-header">Technologies Covered</span>
+                <div class="tags-wrap">
+                  <span *ngFor="let tech of course.technologies" class="tag-chip">{{ tech }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What You'll Learn -->
+    <section class="course-section">
+      <div class="container">
+        <div class="section-box">
+          <div class="section-tag">OUTCOMES</div>
+          <h2 class="box-heading">What You'll Learn & Master</h2>
+          <div class="outcomes-grid">
+            <div class="outcome-item" *ngFor="let item of course.whatYouWillLearn">
+              <div class="outcome-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <p class="outcome-text">{{ item }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detailed Curriculum -->
+    <section class="course-section curriculum-section" *ngIf="course.curriculum && course.curriculum.length > 0">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-tag">SYLLABUS</div>
+          <h2 class="section-title">Step-by-Step Curriculum</h2>
+          <p class="section-subtitle">
+            Structured modules engineered to guide you from foundational principles to production-grade deployment.
+          </p>
+        </div>
+
+        <div class="curriculum-accordion">
+          <div
+            *ngFor="let mod of course.curriculum; let i = index"
+            class="curriculum-module"
+            [class.active]="activeModuleIndex === i">
+            <button
+              type="button"
+              class="module-header"
+              (click)="toggleModule(i)"
+              [attr.aria-expanded]="activeModuleIndex === i">
+              <div class="module-left">
+                <span class="mod-number">Module 0{{ mod.moduleNumber }}</span>
+                <span class="mod-title">{{ mod.title }}</span>
+              </div>
+              <div class="module-right">
+                <span class="mod-duration">{{ mod.duration }}</span>
+                <svg
+                  class="chevron"
+                  [class.rotate]="activeModuleIndex === i"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </button>
+
+            <div class="module-body" *ngIf="activeModuleIndex === i">
+              <ul class="lesson-list">
+                <li *ngFor="let lesson of mod.lessons">
+                  <span class="lesson-bullet">●</span>
+                  <span class="lesson-title">{{ lesson }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Capstone Projects -->
+    <section class="course-section projects-section-bg" *ngIf="course.capstoneProjects && course.capstoneProjects.length > 0">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-tag">HANDS-ON PORTFOLIO</div>
+          <h2 class="section-title">Capstone Projects You'll Build</h2>
+          <p class="section-subtitle">
+            Graduate with verifiable, production-grade applications that hiring managers actually respect.
+          </p>
+        </div>
+
+        <div class="capstone-grid">
+          <div class="capstone-card" *ngFor="let p of course.capstoneProjects">
+            <div class="capstone-badge">PRODUCTION SPEC</div>
+            <h3 class="capstone-title">{{ p.title }}</h3>
+            <p class="capstone-desc">{{ p.description }}</p>
+            <div class="capstone-tags">
+              <span *ngFor="let t of p.tags" class="cap-tag">{{ t }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Career Support -->
+    <section class="course-section career-section-bg">
+      <div class="container">
+        <div class="career-banner">
+          <div class="career-banner__text">
+            <div class="section-tag">CAREER ACCELERATION</div>
+            <h2>Dedicated Placement & Career Support</h2>
+            <p>
+              We believe skills are just the beginning. Our dedicated career advisory team supports your journey until you successfully transition into your target role.
+            </p>
+            <div class="career-pills">
+              <span *ngFor="let support of course.careerSupport" class="career-pill">
+                ✦ {{ support }}
+              </span>
+            </div>
+          </div>
+          <div class="career-banner__action">
+            <button class="btn btn-primary btn-lg" (click)="handleEnroll()">
+              {{ isEnrolled ? 'Open Student Portal' : 'Enroll Now' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Course FAQs -->
+    <section class="course-section" *ngIf="course.faqs && course.faqs.length > 0">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-tag">QUESTIONS & ANSWERS</div>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-accordion">
+          <div class="faq-item" *ngFor="let faq of course.faqs; let i = index" [class.open]="openFaqIndex === i">
+            <button type="button" class="faq-question" (click)="toggleFaq(i)">
+              <span>{{ faq.question }}</span>
+              <span class="faq-icon">{{ openFaqIndex === i ? '−' : '+' }}</span>
+            </button>
+            <div class="faq-answer" *ngIf="openFaqIndex === i">
+              <p>{{ faq.answer }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+
+  <!-- Final CTA -->
+  <app-final-cta></app-final-cta>
+</main>

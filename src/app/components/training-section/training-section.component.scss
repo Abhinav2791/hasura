@@ -197,6 +197,27 @@
     strong { color: var(--text-primary); font-weight: 700; }
   }
 
+  &__actions-row {
+    margin-top: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    .course-card__cta {
+      flex: 1;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 13.5px;
+      padding: 10px 14px;
+    }
+
+    .quick-view-btn {
+      padding: 10px 12px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+  }
+
   &__cta {
     margin-top: auto;
     width: 100%;
@@ -204,3 +225,4 @@
     transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   }
 }
+

@@ -1,0 +1,314 @@
+<main class="student-dashboard">
+  <!-- Header Bar -->
+  <header class="dashboard-header">
+    <div class="container">
+      <div class="dashboard-header__content">
+        <div class="welcome-block" *ngIf="currentUser$ | async as user">
+          <div class="user-avatar-wrap">
+            <img [src]="user.avatar" [alt]="user.name" class="user-avatar" />
+            <span class="online-indicator"></span>
+          </div>
+          <div>
+            <div class="badge-role">HASURA STUDENT PORTAL</div>
+            <h1 class="welcome-title">Welcome back, {{ user.name }}</h1>
+            <p class="welcome-sub">DREAM • BUILD • GROW — Track your engineering milestones and certifications</p>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <a routerLink="/courses" class="btn btn-secondary btn-sm">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <path d="M2 17L12 22L22 17"></path>
+              <path d="M2 12L12 17L22 12"></path>
+            </svg>
+            Explore More Courses
+          </a>
+          <button (click)="logout()" class="btn btn-outline-danger btn-sm">
+            Sign Out
+          </button>
+        </div>
+      </div>
+
+      <!-- Dashboard Navigation Tabs -->
+      <nav class="dashboard-tabs" role="tablist">
+        <button
+          class="tab-link"
+          [class.active]="activeTab === 'courses'"
+          (click)="setTab('courses')"
+          role="tab">
+          <span>My Courses</span>
+        </button>
+        <button
+          class="tab-link"
+          [class.active]="activeTab === 'projects'"
+          (click)="setTab('projects')"
+          role="tab">
+          <span>Projects Portfolio</span>
+        </button>
+        <button
+          class="tab-link"
+          [class.active]="activeTab === 'certificates'"
+          (click)="setTab('certificates')"
+          role="tab">
+          <span>Certificates</span>
+        </button>
+        <button
+          class="tab-link"
+          [class.active]="activeTab === 'career'"
+          (click)="setTab('career')"
+          role="tab">
+          <span>Career Support</span>
+        </button>
+        <button
+          class="tab-link"
+          [class.active]="activeTab === 'profile'"
+          (click)="setTab('profile')"
+          role="tab">
+          <span>Profile Settings</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Content Section -->
+  <section class="dashboard-body">
+    <div class="container">
+      <!-- 1. MY COURSES TAB -->
+      <div *ngIf="activeTab === 'courses'" class="tab-content">
+        <div class="content-header">
+          <div>
+            <h2 class="section-title">Active Learning Programs</h2>
+            <p class="section-desc">Track real-time progress, complete hands-on labs, and unlock milestone certificates.</p>
+          </div>
+        </div>
+
+        <div class="enrollments-list" *ngIf="enrollments$ | async as enrollments">
+          <div *ngIf="enrollments.length === 0" class="empty-state">
+            <p>You have not enrolled in any programs yet.</p>
+            <a routerLink="/courses" class="btn btn-primary">Browse Available Courses</a>
+          </div>
+
+          <div *ngFor="let item of enrollments" class="enrollment-card">
+            <div class="card-main">
+              <div class="card-meta">
+                <span class="card-category">{{ item.category }}</span>
+                <span class="card-status" [class.completed]="item.status === 'completed'">
+                  {{ item.status === 'completed' ? 'Completed' : 'In Progress' }}
+                </span>
+              </div>
+              <h3 class="card-title">{{ item.courseTitle }}</h3>
+              <p class="current-lesson" *ngIf="item.currentLesson">
+                <span class="dot"></span>
+                <span>Current: {{ item.currentLesson }}</span>
+              </p>
+
+              <!-- Progress bar -->
+              <div class="progress-box">
+                <div class="progress-header">
+                  <span>Curriculum Progress</span>
+                  <span class="pct">{{ item.progress }}%</span>
+                </div>
+                <div class="progress-bar-bg">
+                  <div class="progress-bar-fill" [style.width.%]="item.progress"></div>
+                </div>
+              </div>
+
+              <!-- Quick action to test completion -->
+              <div class="card-actions">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  (click)="incrementProgress(item, 15)">
+                  Continue Learning (+15%)
+                </button>
+                <a [routerLink]="['/courses', item.courseId]" class="btn btn-secondary btn-sm">
+                  View Syllabus
+                </a>
+              </div>
+            </div>
+
+            <div class="card-sidebar" *ngIf="item.certificateId">
+              <div class="cert-pill">
+                <span class="icon">🏆</span>
+                <span>CERTIFIED</span>
+              </div>
+              <p class="cert-id">{{ item.certificateId }}</p>
+              <button class="btn btn-secondary btn-sm w-full" (click)="setTab('certificates')">
+                View Certificate
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. PROJECTS TAB -->
+      <div *ngIf="activeTab === 'projects'" class="tab-content">
+        <div class="content-header">
+          <div>
+            <h2 class="section-title">Capstone Submissions & Artifacts</h2>
+            <p class="section-desc">Production-grade applications evaluated by Hasura staff engineers.</p>
+          </div>
+        </div>
+
+        <div class="projects-grid">
+          <div class="project-submission-card">
+            <div class="proj-header">
+              <span class="proj-badge">EVALUATED • 98/100</span>
+              <span class="proj-date">Sept 2026</span>
+            </div>
+            <h3 class="proj-title">Autonomous RAG Multi-Agent Orchestrator</h3>
+            <p class="proj-desc">High-concurrency document parsing engine with vector embeddings, semantic reranking, and zero-hallucination validation guards.</p>
+            <div class="proj-tags">
+              <span>FastAPI</span>
+              <span>LangChain</span>
+              <span>Pinecone</span>
+              <span>Docker</span>
+            </div>
+            <div class="proj-footer">
+              <span class="reviewer">Reviewed by: Senior AI Lead</span>
+              <a href="https://github.com" target="_blank" rel="noopener" class="link-gh">View Repo →</a>
+            </div>
+          </div>
+
+          <div class="project-submission-card">
+            <div class="proj-header">
+              <span class="proj-badge in-progress">IN LAB REVIEW</span>
+              <span class="proj-date">Current</span>
+            </div>
+            <h3 class="proj-title">Multi-Region Cloud Infrastructure Automation</h3>
+            <p class="proj-desc">Automated Terraform state orchestration deploying highly available Kubernetes clusters on AWS with automated canary releases.</p>
+            <div class="proj-tags">
+              <span>AWS</span>
+              <span>Terraform</span>
+              <span>Kubernetes</span>
+              <span>GitHub Actions</span>
+            </div>
+            <div class="proj-footer">
+              <span class="reviewer">Review status: Automated tests passing</span>
+              <a href="https://github.com" target="_blank" rel="noopener" class="link-gh">View Repo →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. CERTIFICATES TAB -->
+      <div *ngIf="activeTab === 'certificates'" class="tab-content">
+        <div class="content-header">
+          <div>
+            <h2 class="section-title">Verified Competency Credentials</h2>
+            <p class="section-desc">Cryptographically verifiable certificates issued upon 100% capstone project defense.</p>
+          </div>
+        </div>
+
+        <div class="certificates-grid">
+          <div class="cert-card">
+            <div class="cert-card__top">
+              <div class="cert-logo">HASURA</div>
+              <div class="cert-badge">VERIFIED CREDENTIAL</div>
+            </div>
+            <div class="cert-card__body">
+              <span class="cert-presented">This certifies that</span>
+              <h3 class="cert-recipient" *ngIf="currentUser$ | async as user">{{ user.name }}</h3>
+              <p class="cert-course">has successfully defended and mastered the rigorous curriculum in</p>
+              <h4 class="cert-program">AWS Cloud Computing & Infrastructure</h4>
+              <p class="cert-details">Issued: September 2026 • Credential ID: HASURA-CLOUD-2026-9821</p>
+            </div>
+            <div class="cert-card__footer">
+              <span class="tagline">DREAM • BUILD • GROW</span>
+              <span class="verified-stamp">✓ Verified by Hasura Engineering</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. CAREER SUPPORT TAB -->
+      <div *ngIf="activeTab === 'career'" class="tab-content">
+        <div class="content-header">
+          <div>
+            <h2 class="section-title">Career Acceleration Hub</h2>
+            <p class="section-desc">1-on-1 mentorship, resume optimization, and mock technical interview scheduling.</p>
+          </div>
+        </div>
+
+        <div class="career-cards-row">
+          <div class="career-action-card">
+            <div class="card-icon">📄</div>
+            <h3>Resume & LinkedIn Review</h3>
+            <p>Our senior technical recruiters optimize your portfolio and resume for top technology companies.</p>
+            <button class="btn btn-primary btn-sm" (click)="requestResumeReview()">Request Resume Review</button>
+          </div>
+
+          <div class="career-action-card">
+            <div class="card-icon">🎙</div>
+            <h3>Mock Technical Interview</h3>
+            <p>Practice 60-minute coding rounds and system architecture interviews with real engineering managers.</p>
+            <button class="btn btn-primary btn-sm" (click)="requestMockInterview()">Schedule Mock Session</button>
+          </div>
+        </div>
+
+        <div class="history-card">
+          <h3 class="history-title">Your Mentorship History</h3>
+          <div class="history-list">
+            <div class="history-item" *ngFor="let req of careerRequests">
+              <div class="history-header">
+                <span class="req-type">{{ req.type }}</span>
+                <span class="req-status" [class.done]="req.status === 'Completed'">{{ req.status }}</span>
+              </div>
+              <p class="req-notes">{{ req.notes }}</p>
+              <span class="req-date">{{ req.date }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. PROFILE SETTINGS TAB -->
+      <div *ngIf="activeTab === 'profile'" class="tab-content">
+        <div class="content-header">
+          <div>
+            <h2 class="section-title">Student Profile & Preferences</h2>
+            <p class="section-desc">Manage your public contact information and technical background.</p>
+          </div>
+        </div>
+
+        <form class="profile-form" (ngSubmit)="saveProfile()">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input id="fullName" type="text" [(ngModel)]="profileForm.fullName" name="fullName" class="form-control" />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input id="phone" type="text" [(ngModel)]="profileForm.phone" name="phone" class="form-control" placeholder="+1 (555) 000-0000" />
+            </div>
+
+            <div class="form-group full-width">
+              <label for="careerGoal">Career Goal</label>
+              <input id="careerGoal" type="text" [(ngModel)]="profileForm.careerGoal" name="careerGoal" class="form-control" placeholder="e.g. Senior AI Engineer or Cloud Architect" />
+            </div>
+
+            <div class="form-group full-width">
+              <label for="bio">Bio / Summary</label>
+              <textarea id="bio" rows="3" [(ngModel)]="profileForm.bio" name="bio" class="form-control" placeholder="Brief technical summary..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="githubUrl">GitHub Profile URL</label>
+              <input id="githubUrl" type="url" [(ngModel)]="profileForm.githubUrl" name="githubUrl" class="form-control" placeholder="https://github.com/..." />
+            </div>
+
+            <div class="form-group">
+              <label for="linkedinUrl">LinkedIn Profile URL</label>
+              <input id="linkedinUrl" type="url" [(ngModel)]="profileForm.linkedinUrl" name="linkedinUrl" class="form-control" placeholder="https://linkedin.com/in/..." />
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Profile Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>

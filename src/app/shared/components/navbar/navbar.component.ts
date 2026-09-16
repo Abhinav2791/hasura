@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     { label: 'Home', route: '/' },
     { label: 'About', route: '/about' },
     { label: 'Services', route: '/services' },
+    { label: 'Solutions', route: '/solutions' },
     { label: 'Training', route: '/training' },
     { label: 'Projects', route: '/projects' },
     { label: 'Careers', route: '/careers' },
@@ -29,6 +30,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isScrolled = false;
   isMobileMenuOpen = false;
   isGetStartedOpen = false;
+  isUserMenuOpen = false;
   isBrowser: boolean;
   currentUser$: Observable<User | null>;
 
@@ -53,6 +55,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @HostListener('document:click')
   onDocumentClick(): void {
     this.closeGetStarted();
+    this.isUserMenuOpen = false;
   }
 
   toggleGetStarted(event?: Event): void {
@@ -60,9 +63,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
       event.stopPropagation();
     }
     this.isGetStartedOpen = !this.isGetStartedOpen;
+    this.isUserMenuOpen = false;
   }
 
   closeGetStarted(): void {
+    this.isGetStartedOpen = false;
+  }
+
+  toggleUserMenu(event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.isUserMenuOpen = !this.isUserMenuOpen;
     this.isGetStartedOpen = false;
   }
 
@@ -76,6 +88,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   closeMobileMenu(): void {
     this.isMobileMenuOpen = false;
     this.isGetStartedOpen = false;
+    this.isUserMenuOpen = false;
     if (this.isBrowser) {
       document.body.style.overflow = '';
     }

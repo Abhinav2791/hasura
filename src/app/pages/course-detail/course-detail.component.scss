@@ -1,0 +1,562 @@
+.course-detail-page {
+  padding-top: 5rem;
+  background: var(--color-bg);
+  min-height: 100vh;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #60a5fa;
+  }
+}
+
+.course-hero {
+  padding: 3.5rem 0 4rem;
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 15%;
+    width: 500px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1.3fr 0.8fr;
+    gap: 3.5rem;
+    align-items: start;
+
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  .course-category-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #818cf8;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+
+  .course-title {
+    font-size: clamp(2.2rem, 3.5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--color-text-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .course-subtitle {
+    font-size: 1.15rem;
+    color: #93c5fd;
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+  }
+
+  .course-description {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    margin-bottom: 2rem;
+  }
+
+  .course-highlights {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+
+    .highlight-item {
+      .hl-label {
+        display: block;
+        font-size: 0.75rem;
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.25rem;
+      }
+      .hl-val {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--color-text-primary);
+      }
+    }
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    .btn-success {
+      background: #059669;
+      border-color: #10b981;
+    }
+  }
+}
+
+// Enroll Sidebar Card
+.enroll-card {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  padding: 2.25rem;
+  backdrop-filter: blur(16px);
+  position: sticky;
+  top: 6rem;
+
+  &__badge {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #818cf8;
+    margin-bottom: 0.85rem;
+  }
+
+  &__price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.2rem;
+    margin-bottom: 0.5rem;
+
+    .currency {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+    .amount {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+    }
+    .period {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-left: 0.35rem;
+    }
+  }
+
+  &__guarantee {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  &__features {
+    margin: 1.75rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.5rem;
+
+    .feature-row {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.88rem;
+      color: var(--color-text-secondary);
+
+      .feature-icon {
+        color: #38bdf8;
+        font-weight: 800;
+      }
+    }
+  }
+
+  .card-technologies {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.25rem;
+
+    .tech-header {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .tags-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+
+      .tag-chip {
+        font-size: 0.72rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 0.25rem 0.6rem;
+        border-radius: 6px;
+        color: #cbd5e1;
+      }
+    }
+  }
+}
+
+// Section box
+.course-section {
+  padding: 4.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+
+  &.curriculum-section {
+    background: var(--color-bg-secondary);
+  }
+  &.projects-section-bg {
+    background: var(--color-bg);
+  }
+  &.career-section-bg {
+    background: rgba(15, 23, 42, 0.4);
+  }
+}
+
+.section-box {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 3rem;
+
+  @media (max-width: 768px) {
+    padding: 1.75rem;
+  }
+
+  .box-heading {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin: 0.5rem 0 2rem;
+  }
+}
+
+.outcomes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+
+  .outcome-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.25rem;
+    border-radius: 12px;
+
+    .outcome-icon {
+      color: #38bdf8;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .outcome-text {
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+      margin: 0;
+    }
+  }
+}
+
+// Curriculum Accordion
+.curriculum-accordion {
+  max-width: 860px;
+  margin: 2.5rem auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.curriculum-module {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.25s ease;
+
+  &.active {
+    border-color: rgba(99, 102, 241, 0.5);
+    background: rgba(15, 23, 42, 0.85);
+  }
+
+  .module-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: inherit;
+
+    .module-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      .mod-number {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #818cf8;
+        letter-spacing: 0.05em;
+      }
+      .mod-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--color-text-primary);
+      }
+    }
+
+    .module-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .mod-duration {
+        font-size: 0.82rem;
+        color: var(--color-text-muted);
+      }
+
+      .chevron {
+        color: var(--color-text-muted);
+        transition: transform 0.2s;
+
+        &.rotate {
+          transform: rotate(180deg);
+          color: #818cf8;
+        }
+      }
+    }
+  }
+
+  .module-body {
+    padding: 0 1.5rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+    .lesson-list {
+      list-style: none;
+      padding: 1rem 0 0 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.92rem;
+        color: var(--color-text-secondary);
+
+        .lesson-bullet {
+          color: #6366f1;
+          font-size: 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+// Capstone Cards
+.capstone-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.75rem;
+  margin-top: 3rem;
+}
+
+.capstone-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 2rem;
+  position: relative;
+  transition: all 0.25s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99, 102, 241, 0.4);
+  }
+
+  .capstone-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #34d399;
+    background: rgba(52, 211, 153, 0.1);
+    border: 1px solid rgba(52, 211, 153, 0.2);
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+
+  .capstone-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .capstone-desc {
+    font-size: 0.92rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .capstone-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+
+    .cap-tag {
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      color: #94a3b8;
+    }
+  }
+}
+
+// Career Banner
+.career-banner {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(59, 130, 246, 0.08) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 20px;
+  padding: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2.5rem;
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  &__text {
+    max-width: 680px;
+
+    h2 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--color-text-primary);
+      margin: 0.5rem 0 1rem;
+    }
+
+    p {
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .career-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+
+      @media (max-width: 992px) {
+        justify-content: center;
+      }
+
+      .career-pill {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #93c5fd;
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        padding: 0.35rem 0.85rem;
+        border-radius: 999px;
+      }
+    }
+  }
+}
+
+// FAQs
+.faq-accordion {
+  max-width: 800px;
+  margin: 2.5rem auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+
+  .faq-item {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+
+    &.open {
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      text-align: left;
+
+      .faq-icon {
+        font-size: 1.25rem;
+        color: #818cf8;
+      }
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem 1.25rem;
+      color: var(--color-text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+  }
+}
+
+// Loading and Empty
+.course-loading, .course-not-found {
+  padding: 8rem 0;
+}

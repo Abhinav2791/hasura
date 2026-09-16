@@ -64,12 +64,14 @@ export class AuthService {
    * Log in user with simulated credential validation
    */
   login(email: string, password: string, rememberMe = true): Observable<AuthResponse> {
+    const cleanEmail = email.trim().toLowerCase();
+    const isAdmin = cleanEmail.includes('admin') || cleanEmail.startsWith('admin@');
     const mockUser: User = {
       id: 'usr_' + Math.random().toString(36).substring(2, 9),
-      name: email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-      email: email.trim().toLowerCase(),
-      avatar: `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(email)}`,
-      role: 'Software Engineer',
+      name: cleanEmail.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+      email: cleanEmail,
+      avatar: `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(cleanEmail)}`,
+      role: isAdmin ? 'admin' : 'student',
       createdAt: new Date().toISOString()
     };
 
@@ -97,13 +99,15 @@ export class AuthService {
   /**
    * Sign up new user
    */
-  signup(name: string, email: string, password: string): Observable<AuthResponse> {
+  signup(name: string, email: string, password: string, role: 'student' | 'admin' = 'student'): Observable<AuthResponse> {
+    const cleanEmail = email.trim().toLowerCase();
+    const isAdmin = role === 'admin' || cleanEmail.includes('admin');
     const newUser: User = {
       id: 'usr_' + Math.random().toString(36).substring(2, 9),
       name: name.trim(),
-      email: email.trim().toLowerCase(),
-      avatar: `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(email)}`,
-      role: 'Hasura Innovator',
+      email: cleanEmail,
+      avatar: `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(cleanEmail)}`,
+      role: isAdmin ? 'admin' : 'student',
       createdAt: new Date().toISOString()
     };
 

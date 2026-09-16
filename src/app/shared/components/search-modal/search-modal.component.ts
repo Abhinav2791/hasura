@@ -21,11 +21,14 @@ export class SearchModalComponent implements OnInit, OnDestroy {
 
   allItems: SearchResult[] = [
     // Courses
-    { category: 'Course', title: 'Generative AI Engineering', subtitle: 'LLMs, RAG, LangChain, Vector DBs, Python', route: '/courses' },
-    { category: 'Course', title: 'AWS Cloud Computing', subtitle: 'Cloud Architecture, EC2, Lambda, S3, IAM, Terraform', route: '/courses' },
-    { category: 'Course', title: 'DevOps Full Stack', subtitle: 'Docker, Kubernetes, CI/CD pipelines, Ansible', route: '/courses' },
-    { category: 'Course', title: 'Java Full Stack Development', subtitle: 'Spring Boot, Angular, React, PostgreSQL, Microservices', route: '/courses' },
-    { category: 'Course', title: 'UI/UX Design Systems', subtitle: 'Figma, User Research, Prototyping, Design Systems', route: '/courses' },
+    { category: 'Course', title: 'Generative AI Engineering', subtitle: 'LLMs, RAG, LangChain, Vector DBs, Python', route: '/courses/genai' },
+    { category: 'Course', title: 'AWS Cloud Computing', subtitle: 'Cloud Architecture, EC2, Lambda, S3, IAM, Terraform', route: '/courses/aws-cloud' },
+    { category: 'Course', title: 'DevOps Full Stack', subtitle: 'Docker, Kubernetes, CI/CD pipelines, Ansible', route: '/courses/devops' },
+    { category: 'Course', title: 'Java Full Stack Development', subtitle: 'Spring Boot, Angular, React, PostgreSQL, Microservices', route: '/courses/java-fullstack' },
+    { category: 'Course', title: 'UI/UX Design Systems', subtitle: 'Figma, User Research, Prototyping, Design Systems', route: '/courses/ui-ux-design' },
+
+    // Solutions
+    { category: 'Page', title: 'Enterprise Solutions', subtitle: 'AI Transformation, Cloud Modernization & Software Engineering', route: '/solutions' },
 
     // Services
     { category: 'Service', title: 'Enterprise Software Development', subtitle: 'Scalable web and mobile applications for modern business', route: '/services' },
@@ -40,7 +43,9 @@ export class SearchModalComponent implements OnInit, OnDestroy {
     { category: 'Project', title: 'Cloud-Native Fintech Platform', subtitle: 'High-concurrency payment engine on AWS microservices', route: '/projects' },
     { category: 'Project', title: 'Healthcare Telemedicine Portal', subtitle: 'HIPAA-compliant video consultation & patient monitoring', route: '/projects' },
 
-    // Pages
+    // Portals & Pages
+    { category: 'Page', title: 'Student Learning Portal', subtitle: 'Access your courses, certificates, and portfolio projects', route: '/student/dashboard' },
+    { category: 'Page', title: 'Platform Admin Console', subtitle: 'Manage curriculum, metrics, and incoming client leads', route: '/admin/dashboard' },
     { category: 'Page', title: 'About Hasura', subtitle: 'Our mission, methodology, leadership values and story', route: '/about' },
     { category: 'Page', title: 'Training & Career Programs', subtitle: 'Industry-ready technology education and mentorship', route: '/training' },
     { category: 'Page', title: 'Careers at Hasura', subtitle: 'Open engineering, AI, design, and mentorship positions', route: '/careers' },

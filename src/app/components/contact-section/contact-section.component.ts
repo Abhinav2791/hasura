@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastService } from '../../core/services/toast.service';
 import { ActivatedRoute } from '@angular/router';
+import { ToastService } from '../../core/services/toast.service';
+import { ContactService } from '../../core/services/contact.service';
 
 @Component({
   selector: 'app-contact-section',
@@ -26,6 +27,7 @@ export class ContactSectionComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastService: ToastService,
+    private contactService: ContactService,
     private route: ActivatedRoute
   ) {
     this.contactForm = this.fb.group({
@@ -70,16 +72,28 @@ export class ContactSectionComponent implements OnInit {
     }
 
     this.formState = 'loading';
+    const formVal = this.contactForm.value;
 
-    // Simulate API call
-    setTimeout(() => {
-      this.formState = 'success';
-      this.toastService.success(
-        'Inquiry Dispatched!',
-        'Thank you! A Hasura technology advisor will connect with you within 24 hours.'
-      );
-      this.contactForm.reset();
-    }, 1200);
+    this.contactService.submit({
+      name: formVal.name,
+      email: formVal.email,
+      phone: formVal.phone,
+      company: formVal.company,
+      service: formVal.subject,
+      message: formVal.message
+    }).subscribe({
+      next: () => {
+        this.formState = 'success';
+        this.contactForm.reset();
+      },
+      error: () => {
+        this.formState = 'error';
+        this.toastService.error(
+          'Transmission Issue',
+          'We could not send your message right now. Please try again or email us directly.'
+        );
+      }
+    });
   }
 
   resetForm(): void {

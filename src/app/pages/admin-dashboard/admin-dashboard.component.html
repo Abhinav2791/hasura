@@ -1,0 +1,482 @@
+<main class="admin-dashboard">
+  <!-- Top Admin Navigation Bar -->
+  <header class="admin-header">
+    <div class="admin-container">
+      <div class="admin-header__content">
+        <div class="brand-block">
+          <div class="admin-badge">
+            <span class="live-dot"></span>
+            <span>HASURA COMMAND CONSOLE</span>
+          </div>
+          <h1 class="admin-title">Platform Administration</h1>
+          <p class="admin-sub">Monitor student progression, curate learning tracks, and manage enterprise client inquiries.</p>
+        </div>
+
+        <div class="admin-actions">
+          <div class="supabase-status-chip" title="Connected to Supabase project ahtixjzwhlzgzjfvrcqh">
+            <span class="pulse-green"></span>
+            <span class="db-text">Supabase Live</span>
+          </div>
+          <button class="btn-create-course" (click)="openAddCourse()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>Create Course</span>
+          </button>
+          <button class="btn-signout" (click)="logout()">
+            Sign Out
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs Bar -->
+      <nav class="admin-tabs-nav" role="tablist">
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === 'overview'"
+          (click)="setTab('overview')"
+          role="tab">
+          <span class="tab-icon">📊</span>
+          <span class="tab-text">Executive Overview</span>
+        </button>
+
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === 'courses'"
+          (click)="setTab('courses')"
+          role="tab">
+          <span class="tab-icon">📚</span>
+          <span class="tab-text">Curriculum & Courses</span>
+          <span class="tab-counter" *ngIf="courses$ | async as c">{{ c.length }}</span>
+        </button>
+
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === 'leads'"
+          (click)="setTab('leads')"
+          role="tab">
+          <span class="tab-icon">💼</span>
+          <span class="tab-text">Client Inquiries</span>
+          <span class="tab-counter amber" *ngIf="stats$ | async as s">{{ s.newLeadsCount }}</span>
+        </button>
+
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === 'enrollments'"
+          (click)="setTab('enrollments')"
+          role="tab">
+          <span class="tab-icon">🎓</span>
+          <span class="tab-text">Learner Enrollments</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Admin Main Surface -->
+  <section class="admin-body">
+    <div class="admin-container">
+      <!-- ============================================================= -->
+      <!-- 1. OVERVIEW TAB -->
+      <!-- ============================================================= -->
+      <div *ngIf="activeTab === 'overview'" class="tab-view animate-fade">
+        <!-- Telemetry Stats Cards -->
+        <div class="metrics-grid" *ngIf="stats$ | async as stats">
+          <div class="metric-card metric-card--blue">
+            <div class="metric-card__header">
+              <span class="metric-label">TOTAL LEARNERS</span>
+              <div class="metric-icon">👥</div>
+            </div>
+            <div class="metric-card__number">{{ stats.totalStudents }}</div>
+            <div class="metric-card__footer">
+              <span class="indicator-tag tag-green">↑ Active</span>
+              <span class="footer-note">Enrolled across cohorts</span>
+            </div>
+          </div>
+
+          <div class="metric-card metric-card--purple">
+            <div class="metric-card__header">
+              <span class="metric-label">ACTIVE COURSES</span>
+              <div class="metric-icon">📚</div>
+            </div>
+            <div class="metric-card__number">{{ stats.activeCoursesCount }} <span class="denom">/ {{ stats.totalCourses }}</span></div>
+            <div class="metric-card__footer">
+              <span class="indicator-tag tag-blue">Published</span>
+              <span class="footer-note">Curricula ready to take</span>
+            </div>
+          </div>
+
+          <div class="metric-card metric-card--cyan">
+            <div class="metric-card__header">
+              <span class="metric-label">ENROLLMENTS</span>
+              <div class="metric-icon">📈</div>
+            </div>
+            <div class="metric-card__number">{{ stats.totalEnrollments }}</div>
+            <div class="metric-card__footer">
+              <span class="indicator-tag tag-purple">Platform Wide</span>
+              <span class="footer-note">Live milestone tracking</span>
+            </div>
+          </div>
+
+          <div class="metric-card metric-card--amber">
+            <div class="metric-card__header">
+              <span class="metric-label">CLIENT INQUIRIES</span>
+              <div class="metric-icon">💼</div>
+            </div>
+            <div class="metric-card__number">{{ stats.totalLeads }}</div>
+            <div class="metric-card__footer">
+              <span class="indicator-tag tag-amber">{{ stats.newLeadsCount }} Actionable</span>
+              <span class="footer-note">Needs team review</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Action Bar -->
+        <div class="quick-banner">
+          <div class="quick-banner__text">
+            <h3>Curriculum Quick Actions</h3>
+            <p>Publish new programs or browse and export prospective enterprise client leads.</p>
+          </div>
+          <div class="quick-banner__buttons">
+            <button class="btn btn-primary" (click)="openAddCourse()">+ Add New Program</button>
+            <button class="btn btn-secondary" (click)="setTab('leads')">View Inbound Leads →</button>
+          </div>
+        </div>
+
+        <!-- Recent Inquiries Panel -->
+        <div class="content-panel">
+          <div class="panel-header">
+            <div>
+              <h2 class="panel-title">Recent Inbound Client Inquiries</h2>
+              <p class="panel-sub">Prospective clients and talent partners reaching out via the contact system.</p>
+            </div>
+            <button class="btn btn-secondary btn-sm" (click)="setTab('leads')">Browse All Leads ({{ (submissions$ | async)?.length || 0 }})</button>
+          </div>
+
+          <div class="table-wrapper" *ngIf="submissions$ | async as submissions">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>CLIENT / CONTACT</th>
+                  <th>REQUESTED SERVICE</th>
+                  <th>ORGANIZATION</th>
+                  <th>STATUS</th>
+                  <th>RECEIVED</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let lead of submissions.slice(0, 5)">
+                  <td>
+                    <div class="lead-primary-name">{{ lead.name }}</div>
+                    <a [href]="'mailto:' + lead.email" class="lead-email-link">{{ lead.email }}</a>
+                  </td>
+                  <td>
+                    <span class="service-pill">{{ lead.service }}</span>
+                  </td>
+                  <td>
+                    <span class="company-text">{{ lead.company || 'Private Inquiry' }}</span>
+                  </td>
+                  <td>
+                    <span class="status-pill status-pill--{{ lead.status }}">{{ lead.status | uppercase }}</span>
+                  </td>
+                  <td class="date-cell">
+                    {{ lead.createdAt | date:'shortDate' }}
+                  </td>
+                  <td>
+                    <div class="action-buttons-cell">
+                      <button
+                        *ngIf="lead.status === 'new'"
+                        class="btn-act btn-act-contact"
+                        (click)="updateLeadStatus(lead, 'contacted')"
+                        title="Mark as Contacted">
+                        Contacted
+                      </button>
+                      <button
+                        *ngIf="lead.status === 'contacted'"
+                        class="btn-act btn-act-resolve"
+                        (click)="updateLeadStatus(lead, 'resolved')"
+                        title="Mark as Resolved">
+                        Resolve
+                      </button>
+                      <span *ngIf="lead.status === 'resolved'" class="resolved-label">✓ Resolved</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================= -->
+      <!-- 2. COURSES TAB -->
+      <!-- ============================================================= -->
+      <div *ngIf="activeTab === 'courses'" class="tab-view animate-fade">
+        <div class="section-bar">
+          <div>
+            <h2 class="section-heading">Course Catalog Management</h2>
+            <p class="section-description">Manage live syllabus, update tuition rates, and toggle program public visibility.</p>
+          </div>
+          <button class="btn btn-primary" (click)="openAddCourse()">
+            + Create New Course
+          </button>
+        </div>
+
+        <div class="content-panel">
+          <div class="table-wrapper" *ngIf="courses$ | async as courses">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>PROGRAM</th>
+                  <th>DOMAIN</th>
+                  <th>DURATION</th>
+                  <th>PROJECTS</th>
+                  <th>TUITION</th>
+                  <th>VISIBILITY</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let course of courses">
+                  <td>
+                    <div class="course-cell-title">{{ course.title }}</div>
+                    <div class="course-cell-sub">{{ course.level }} • {{ course.outcome }}</div>
+                  </td>
+                  <td>
+                    <span class="domain-tag">{{ course.category }}</span>
+                  </td>
+                  <td class="tabular-text">{{ course.duration }}</td>
+                  <td class="tabular-text">{{ course.projects }} Real-World</td>
+                  <td class="tabular-text price-text">${{ course.price || 699 }}</td>
+                  <td>
+                    <span class="visibility-pill" [class.live]="course.is_active !== false" [class.draft]="course.is_active === false">
+                      {{ course.is_active !== false ? '● Live' : '○ Draft' }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="actions-group">
+                      <button
+                        type="button"
+                        class="btn-toggle-status"
+                        [class.btn-unpublish]="course.is_active !== false"
+                        [class.btn-publish]="course.is_active === false"
+                        (click)="toggleCourseStatus(course)">
+                        {{ course.is_active !== false ? 'Hide' : 'Publish' }}
+                      </button>
+                      <a [routerLink]="['/courses', course.slug || course.id]" target="_blank" class="btn-view-link">
+                        Preview ↗
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================= -->
+      <!-- 3. LEADS TAB -->
+      <!-- ============================================================= -->
+      <div *ngIf="activeTab === 'leads'" class="tab-view animate-fade">
+        <ng-container *ngIf="submissions$ | async as submissions">
+          <div class="section-bar">
+            <div>
+              <h2 class="section-heading">Client Inquiries & Business Leads</h2>
+              <p class="section-description">Inbound requests submitted through Hasura contact & consultation workflows.</p>
+            </div>
+            <button class="btn btn-secondary" (click)="exportLeadsCSV(submissions)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Export to CSV
+          </button>
+        </div>
+
+        <div class="leads-grid">
+          <div class="lead-card" *ngFor="let s of submissions" [class.border-new]="s.status === 'new'">
+            <div class="lead-card__top">
+              <div>
+                <h3 class="lead-name">{{ s.name }}</h3>
+                <span class="lead-org">{{ s.company || 'Individual Client' }}</span>
+              </div>
+              <div class="status-selector-wrap">
+                <span class="status-pill status-pill--{{ s.status }}">{{ s.status | uppercase }}</span>
+                <select
+                  [value]="s.status"
+                  (change)="updateLeadStatus(s, $any($event.target).value)"
+                  class="status-dropdown"
+                  aria-label="Update Lead Status">
+                  <option value="new">New</option>
+                  <option value="contacted">Contacted</option>
+                  <option value="resolved">Resolved</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="lead-card__meta">
+              <div class="meta-item">
+                <span class="meta-label">Domain:</span>
+                <span class="meta-val service-pill">{{ s.service }}</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Email:</span>
+                <a [href]="'mailto:' + s.email" class="meta-val email-val">{{ s.email }}</a>
+              </div>
+              <div class="meta-item" *ngIf="s.phone">
+                <span class="meta-label">Phone:</span>
+                <a [href]="'tel:' + s.phone" class="meta-val">{{ s.phone }}</a>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Date:</span>
+                <span class="meta-val text-muted">{{ s.createdAt | date:'medium' }}</span>
+              </div>
+            </div>
+
+            <div class="lead-card__msg">
+              <span class="msg-label">Inquiry Message:</span>
+              <p class="msg-content">{{ s.message }}</p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+      <!-- ============================================================= -->
+      <!-- 4. ENROLLMENTS TAB -->
+      <!-- ============================================================= -->
+      <div *ngIf="activeTab === 'enrollments'" class="tab-view animate-fade">
+        <div class="section-bar">
+          <div>
+            <h2 class="section-heading">Student Enrollment & Progress Roster</h2>
+            <p class="section-description">Real-time status of learners completing labs and earning verified certificates.</p>
+          </div>
+        </div>
+
+        <div class="content-panel">
+          <div class="table-wrapper" *ngIf="enrollments$ | async as enrollments">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ENROLLMENT ID</th>
+                  <th>COURSE TITLE</th>
+                  <th>DOMAIN</th>
+                  <th>CURRICULUM PROGRESS</th>
+                  <th>STATUS</th>
+                  <th>CERTIFICATE ISSUED</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let enr of enrollments">
+                  <td><code class="code-id">{{ enr.id }}</code></td>
+                  <td><strong class="course-enrolled-title">{{ enr.courseTitle }}</strong></td>
+                  <td><span class="domain-tag">{{ enr.category }}</span></td>
+                  <td>
+                    <div class="progress-bar-cell">
+                      <div class="bar-outer">
+                        <div class="bar-inner" [style.width.%]="enr.progress"></div>
+                      </div>
+                      <span class="bar-pct">{{ enr.progress }}%</span>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="status-pill status-pill--{{ enr.status }}">
+                      {{ enr.status === 'completed' ? 'GRADUATED' : 'IN TRAINING' }}
+                    </span>
+                  </td>
+                  <td>
+                    <span *ngIf="enr.certificateId" class="cert-issued-pill">
+                      🏆 {{ enr.certificateId }}
+                    </span>
+                    <span *ngIf="!enr.certificateId" class="text-subtle">Pending Completion</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================= -->
+  <!-- CREATE COURSE MODAL DIALOG -->
+  <!-- ============================================================= -->
+  <div class="modal-overlay" *ngIf="isAddCourseModalOpen" (click)="closeAddCourse()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <span class="modal-eyebrow">CURRICULUM CREATOR</span>
+          <h2 class="modal-title">Publish New Hasura Program</h2>
+        </div>
+        <button class="btn-modal-close" (click)="closeAddCourse()" aria-label="Close dialog">×</button>
+      </div>
+
+      <form (ngSubmit)="submitNewCourse()" class="modal-form">
+        <div class="form-row">
+          <div class="form-field full">
+            <label for="cTitle">Program Title *</label>
+            <input id="cTitle" type="text" [(ngModel)]="newCourse.title" name="title" class="form-input" placeholder="e.g. Autonomous AI Agents & LangGraph" required />
+          </div>
+        </div>
+
+        <div class="form-row two-col">
+          <div class="form-field">
+            <label for="cCategory">Domain Category</label>
+            <select id="cCategory" [(ngModel)]="newCourse.category" name="category" class="form-input">
+              <option value="AI">AI & Machine Learning</option>
+              <option value="Cloud">Cloud & AWS</option>
+              <option value="DevOps">DevOps & Automation</option>
+              <option value="Development">Software Development</option>
+              <option value="Design">UI/UX Design</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="cPrice">Tuition Fee ($ USD)</label>
+            <input id="cPrice" type="number" [(ngModel)]="newCourse.price" name="price" class="form-input" placeholder="799" />
+          </div>
+        </div>
+
+        <div class="form-row two-col">
+          <div class="form-field">
+            <label for="cDuration">Duration</label>
+            <input id="cDuration" type="text" [(ngModel)]="newCourse.duration" name="duration" class="form-input" placeholder="e.g. 16 Weeks" />
+          </div>
+
+          <div class="form-field">
+            <label for="cLevel">Skill Level</label>
+            <select id="cLevel" [(ngModel)]="newCourse.level" name="level" class="form-input">
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+              <option value="Beginner to Advanced">Beginner to Advanced</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field full">
+            <label for="cTech">Tech Stack (comma separated)</label>
+            <input id="cTech" type="text" [(ngModel)]="techInput" name="tech" class="form-input" placeholder="Python, FastAPI, LangGraph, Pinecone, Docker" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field full">
+            <label for="cDesc">Program Overview & Syllabus Summary</label>
+            <textarea id="cDesc" rows="3" [(ngModel)]="newCourse.description" name="desc" class="form-input" placeholder="Detailed curriculum scope, learning objectives, and practical project deliverables..."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeAddCourse()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Publish Program Immediately</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

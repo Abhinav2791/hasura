@@ -39,20 +39,33 @@ import { ApplyModalComponent } from './components/apply-modal/apply-modal.compon
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ServicesPageComponent } from './pages/services/services.component';
+import { SolutionsPageComponent } from './pages/solutions/solutions.component';
 import { TrainingPageComponent } from './pages/training/training.component';
 import { CoursesPageComponent } from './pages/courses/courses.component';
+import { CourseDetailComponent } from './pages/course-detail/course-detail.component';
 import { ProjectsPageComponent } from './pages/projects/projects.component';
 import { CareersPageComponent } from './pages/careers/careers.component';
 import { ContactPageComponent } from './pages/contact/contact.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { StudentDashboardComponent } from './pages/student-dashboard/student-dashboard.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 
-// Services
+// Services & Guards
 import { DataService } from './core/services/data.service';
 import { ScrollService } from './core/services/scroll.service';
 import { ToastService } from './core/services/toast.service';
 import { AuthService } from './core/services/auth.service';
+import { CourseService } from './core/services/course.service';
+import { EnrollmentService } from './core/services/enrollment.service';
+import { ContactService } from './core/services/contact.service';
+import { ProfileService } from './core/services/profile.service';
+import { AdminService } from './core/services/admin.service';
+import { StorageService } from './core/services/storage.service';
+import { SupabaseService } from './core/services/supabase.service';
+import { AuthGuard } from './core/guards/auth.guard';
+import { AdminGuard } from './core/guards/admin.guard';
 
 @NgModule({
   declarations: [
@@ -86,14 +99,18 @@ import { AuthService } from './core/services/auth.service';
     HomeComponent,
     AboutComponent,
     ServicesPageComponent,
+    SolutionsPageComponent,
     TrainingPageComponent,
     CoursesPageComponent,
+    CourseDetailComponent,
     ProjectsPageComponent,
     CareersPageComponent,
     ContactPageComponent,
     LoginComponent,
     SignupComponent,
     ForgotPasswordComponent,
+    StudentDashboardComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,6 +125,15 @@ import { AuthService } from './core/services/auth.service';
     ScrollService,
     ToastService,
     AuthService,
+    CourseService,
+    EnrollmentService,
+    ContactService,
+    ProfileService,
+    AdminService,
+    StorageService,
+    SupabaseService,
+    AuthGuard,
+    AdminGuard
   ],
   bootstrap: [AppComponent]
 })
